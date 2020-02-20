@@ -43,6 +43,9 @@ Additional background reading about the programming environment, relevant packag
 * Shiny from RStudio: https://shiny.rstudio.com
 * SummarizedExperiment paper: https://www.nature.com/articles/nmeth.3252 (Figure 2)
 * iSEE paper: https://f1000research.com/articles/7-741/v1
+* "Orchestrating single-cell analysis with Bioconductor", https://www.nature.com/articles/s41592-019-0654-x, Nat Methods 17, 137–145 (2020)
+  * https://osca.bioconductor.org, as an online companion to the manuscript above
+* https://github.com/iSEE/iSEEu for extending the functionality of [_iSEE_](http://bioconductor.org/packages/iSEE/)
 
 ## Workshop Participation
 
