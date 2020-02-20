@@ -65,7 +65,7 @@ There is also scope for participants to apply  [_iSEE_](http://bioconductor.org/
 | **Live demo**: the user interface             | 15m  |
 | **Lab**: Configuring the app interface        | 20m  |
 | **Lab**: A single-cell RNA-seq workflow       | 20m  |
-| **Lab**: Custom panels                        | 20m  |
+| **Lab**: Custom panels and advanced features  | 20m  |
 | Additional questions                          | 15m  |
 
 **Total:** 1h45
