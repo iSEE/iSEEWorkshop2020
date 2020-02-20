@@ -1,0 +1,34 @@
+Package: iSEEWorkshop2020
+Title: Interactive Visualization of SummarizedExperiment Objects with iSEE
+Description: This workshop covers basic usage of iSEE for 
+    interactive visualization of SummarizedExperiment objects.
+Version: 0.0.2
+Depends:
+    R (>= 3.6.0),
+    SummarizedExperiment,
+    SingleCellExperiment,
+    iSEE
+Imports:
+    TENxPBMCData,
+    scater,
+    scran,
+    BiocSingular
+Suggests:
+    knitr,
+    htmltools,
+    rmarkdown,
+    Rtsne,
+    BiocStyle,
+    igraph
+Authors@R: c(person("Kevin", "Rue-Albrecht", role = c("aut", "cre"), email = "kevin.rue-albrecht@kennedy.ox.ac.uk", comment = c(ORCID = "0000-0003-3899-3872")),
+    person("Federico", "Marini", role="aut", email="marinif@uni-mainz.de", comment = c(ORCID = '0000-0003-3252-7758')),
+    person("Charlotte", "Soneson", role="aut", email="charlottesoneson@gmail.com", comment = c(ORCID = '0000-0003-3833-2169')),
+    person("Aaron", "Lun", role="aut", email="infinite.monkeys.with.keyboards@gmail.com", comment = c(ORCID = '0000-0002-3564-4813')))
+Maintainer: Kevin Rue-Albrecht <kevin.rue-albrecht@kennedy.ox.ac.uk>
+VignetteBuilder: knitr
+License: file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+URL: https://github.com/iSEE/iSEEWorkshop2020, https://iSEE.github.io/iSEEWorkshop2020
+BugReports: https://github.com/iSEE/iSEEWorkshop2020/issues
