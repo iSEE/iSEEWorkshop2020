@@ -1,5 +1,5 @@
 <!-- badges: start -->
-  [![Travis build status](https://travis-ci.org/kevinrue/iSEEWorkshop2019.svg?branch=master)](https://travis-ci.org/kevinrue/iSEEWorkshop2019)
+  [![Travis build status](https://travis-ci.org/iSEE/iSEEWorkshop2020.svg?branch=master)](https://travis-ci.org/iSEE/iSEEWorkshop2020)
 <!-- badges: end -->
 
 # iSEE: Interactive visualization of `SummarizedExperiment` objects <img src="man/figures/logo.png" align="right" width="240" height="278">
