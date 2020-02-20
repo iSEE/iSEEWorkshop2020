@@ -43,6 +43,9 @@ td > img {
 
 * Kevin Rue-Albrecht^[University of Oxford, Oxford, UK] (<kevin.rue-albrecht@kennedy.ox.ac.uk>)
 * Charlotte Soneson^[Friedrich Miescher Institute for Biomedical Research and SIB Swiss Institute of Bioinformatics] (<charlotte.soneson@fmi.ch>)
+* Federico Marini^[Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI), Mainz and Center for Thrombosis and Hemostasis (CTH), Mainz] (<marinif@uni-mainz.de>)
+* Aaron Lun^[Genentech, Bioinformatics and Computational Biology] (<infinite.monkeys.with.keyboards@gmail.com>)
+
 
 ## Workshop description {#workshop-description}
 
