@@ -23,7 +23,7 @@ The instructor-led live demo comprises three parts:
 2. Overview of the graphical user interface
 3. Instructions to preconfigure [_iSEE_](http://bioconductor.org/packages/iSEE/) apps
 
-The hands-on lab comprises three part:
+The hands-on lab comprises three parts:
 
 1. Inspection of single-cell RNA-seq data at various steps of a typical computational workflow, including quality control and dimensionality reduction
 2. Addition of custom panels to the user interface for advanced visualization.
