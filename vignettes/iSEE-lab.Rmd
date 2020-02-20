@@ -8,7 +8,7 @@ output:
     toc: true
     toc_depth: 3
     fig_width: 5
-bibliography: "`r file.path(system.file(package='iSEEWorkshop2019', 'vignettes/bib'), 'iSEE-lab.bib')`"
+bibliography: "`r file.path(system.file(package='iSEEWorkshop2020', 'vignettes/bib'), 'iSEE-lab.bib')`"
 vignette: >
   %\VignetteIndexEntry{Demonstration of iSEE functionality}
   %\VignetteEngine{knitr::rmarkdown}
@@ -311,7 +311,7 @@ The creation and configuration of custom panels is discussed later, in a [dedica
 But it's nice to show the capabilities of the panels too, not just the default settings.
 I added a few sentences to the introduction of this section to try to address this. --> 
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "iSEEinterface.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "iSEEinterface.png"))`
 
 <!-- ![](img/iSEEinterface.png) -->
 
@@ -321,7 +321,7 @@ The reduced dimension plot can display any reduced dimension representation that
 
 Note that this slot is not defined for the base `SummarizedExperiment` class, in which case the user interface does not allow the inclusion of panels of this type.
  
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "redDimPlot.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "redDimPlot.png"))`
 
 <!-- ![](img/redDimPlot.png) -->
 
@@ -330,7 +330,7 @@ Note that this slot is not defined for the base `SummarizedExperiment` class, in
 The column data plot can display one or two of the provided column annotations (from the `colData` slot).
 Depending on the class of the selected annotations, the panel shows either a Hinton diagram [@Hinton1991-hintondiagram; @Bremner1994-hintonplots], a violin plot, or a scatter plot.
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "colDataPlot.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "colDataPlot.png"))`
 
 <!-- ![](img/colDataPlot.png) -->
 
@@ -339,7 +339,7 @@ Depending on the class of the selected annotations, the panel shows either a Hin
 Analogous to the [column data plot](#coldataplot) above, the row data plot displays one or two of the provided row annotations (from the `rowData` slot).
 Depending on the class of the selected annotations, the panel displays either a Hinton plot, a violin plot, or a scatter plot.
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "rowDataPlot.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "rowDataPlot.png"))`
 
 <!-- ![](img/rowDataPlot.png) -->
 
@@ -347,7 +347,7 @@ Depending on the class of the selected annotations, the panel displays either a 
 
 The heat map panel displays, for any assay, the observed values for a subset of the features across the samples.
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "heatMap.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "heatMap.png"))`
 
 <!-- ![](img/heatMap.png) -->
 
@@ -356,7 +356,7 @@ The heat map panel displays, for any assay, the observed values for a subset of 
 The feature assay plot displays the observed values for one feature across the samples.
 It is also possible to plot the observed values for two features, in a scatter plot.
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "featAssayPlot.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "featAssayPlot.png"))`
 
 <!-- ![](img/featAssayPlot.png) -->
 
@@ -365,7 +365,7 @@ It is also possible to plot the observed values for two features, in a scatter p
 Analogous to the [feature assay plot](#featassayplot) above, the sample assay plot shows the observed values for all features, for one of the samples.
 It is also possible to plot the observed values for two samples, in a scatter plot.
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "sampAssayPlot.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "sampAssayPlot.png"))`
 
 <!-- ![](img/sampAssayPlot.png) -->
 
@@ -373,7 +373,7 @@ It is also possible to plot the observed values for two samples, in a scatter pl
 
 The row statistics table displays all information provided in the `rowData` slot of the `SummarizedExperiment` object, leveraging the interactivity provided by the `r CRANpkg("DT")` package.
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "rowStatTable.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "rowStatTable.png"))`
 
 <!-- ![](img/rowStatTable.png) -->
 
@@ -381,7 +381,7 @@ The row statistics table displays all information provided in the `rowData` slot
 
 Analogous to the [row statistics table](#rowstattable) above, the column statistics table displays all information provided in the `colData` slot of the `SummarizedExperiment` object.
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "colStatTable.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "colStatTable.png"))`
 
 <!-- ![](img/colStatTable.png) -->
 
@@ -390,7 +390,7 @@ Analogous to the [row statistics table](#rowstattable) above, the column statist
 Each plot panel type has a `Data parameters` collapsible box.
 This box has different content for the each panel types, but in all cases it lets the user control the data that is displayed in the plot.
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "colDataPlotDataParams.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "colDataPlotDataParams.png"))`
 
 <!-- ![](img/colDataPlotDataParams.png) -->
 
@@ -400,7 +400,7 @@ In contrast to the `Data parameters` collapsible box that lets users control _wh
 
 This collapsible box contains the controls to change the size, shape, opacity, and color of the points, to facet the plot by any available categorical annotation, to subsample points for increased speed of plot rendering, and to control how legends are displayed.
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "colDataPlotVisualParams.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "colDataPlotVisualParams.png"))`
 
 <!-- ![](img/colDataPlotVisualParams.png) -->
 
@@ -410,7 +410,7 @@ The `Selection parameters` collapsible box provides controls to transfer selecti
 
 We discuss point transmission in more detail [later in this workshop](#transmit-point-selections).
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "redDimPlotSelectionParams.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "redDimPlotSelectionParams.png"))`
 
 <!-- ![](img/redDimPlotSelectionParams.png) -->
 
@@ -430,10 +430,10 @@ Links are provided in the last column of the table below.
 
 |                    |                                                                     |                                        |
 |--------------------|:-------------------------------------------------------------------:|----------------------------------------|
-| Panel organization | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "PanelOrganization.png"))` | [Organize panels](#configuration-ui) |
-| Diagnostics        | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "Diagnostics.png"))`       | [Examine panel chart](#transmit-point-selections), [Extract R code](#reproducibility), [Display panel settings](#configuration-ui) |
-| Documentation      | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "Documentation.png"))`     | [Quick tour](#sharing-tours), [Open the vignette](#more-resources) |
-| Additional info    | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "additionalInfo.png"))`    | [About this session](#reproducibility), [About iSEE](#more-resources) |
+| Panel organization | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "PanelOrganization.png"))` | [Organize panels](#configuration-ui) |
+| Diagnostics        | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "Diagnostics.png"))`       | [Examine panel chart](#transmit-point-selections), [Extract R code](#reproducibility), [Display panel settings](#configuration-ui) |
+| Documentation      | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "Documentation.png"))`     | [Quick tour](#sharing-tours), [Open the vignette](#more-resources) |
+| Additional info    | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "additionalInfo.png"))`    | [About this session](#reproducibility), [About iSEE](#more-resources) |
 
 
 <!-- Show how to change what is plotted, faceting, changing appearance/color -->
@@ -515,7 +515,7 @@ if (interactive()) {
 }
 ```
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "ReducedDimensionType.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "ReducedDimensionType.png"))`
 
 <!-- ![](img/ReducedDimensionType.png) -->
 
@@ -553,7 +553,7 @@ if (interactive()) {
 }
 ```
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "ColorByColData.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "ColorByColData.png"))`
 
 <!-- ![](img/ColorByColData.png) -->
 
@@ -595,7 +595,7 @@ if (interactive()) {
 }
 ```
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "ColorByFeature.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "ColorByFeature.png"))`
 
 <!-- ![](img/ColorByFeature.png) -->
 
@@ -626,7 +626,7 @@ if (interactive()) {
 }
 ```
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "ColorBySample.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "ColorBySample.png"))`
 
 <!-- ![](img/ColorBySample.png) -->
 
@@ -660,7 +660,7 @@ if (interactive()) {
 }
 ```
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "ConfigureVisualParameters.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "ConfigureVisualParameters.png"))`
 
 <!-- ![](img/ConfigureVisualParameters.png) -->
 
@@ -706,7 +706,7 @@ if (interactive()) {
 }
 ```
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "ConfigureDataPlotPanels.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "ConfigureDataPlotPanels.png"))`
 
 <!-- ![](img/ConfigureDataPlotPanels.png) -->
 
@@ -752,7 +752,7 @@ if (interactive()) {
 }
 ```
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "featAssayPlotDataParams.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "featAssayPlotDataParams.png"))`
 
 <!-- ![](img/featAssayPlotDataParams.png) -->
 
@@ -820,12 +820,12 @@ if (interactive()) {
 }
 ```
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "LinkingPanelsExample.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "LinkingPanelsExample.png"))`
 
 Notably, iSEE can display active links transmitting point selections between panel using the "[Examine panel chart](#additional-controls)" menu.
 Visible panels that do not send or receive a selection are also shown.
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "GraphSelectionLinks.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "GraphSelectionLinks.png"))`
 
 <!-- ![](img/GraphSelectionLinks.png) -->
 
@@ -865,7 +865,7 @@ if (interactive()) {
 }
 ```
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "Zoom.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "Zoom.png"))`
 
 <!-- ![](img/Zoom.png) -->
 
@@ -896,7 +896,7 @@ if (interactive()) {
 }
 ```
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "FilteredTable.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "FilteredTable.png"))`
 
 <!-- ![](img/FilteredTable.png) -->
 
@@ -922,7 +922,7 @@ if (interactive()) {
 }
 ```
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "LinkTableToPlot.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "LinkTableToPlot.png"))`
 
 <!-- ![](img/LinkTableToPlot.png) -->
 
@@ -1022,7 +1022,7 @@ if (interactive()) {
 }
 ```
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "customPCA.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "customPCA.png"))`
 
 <!-- ![](img/customPCA.png) -->
 
@@ -1098,7 +1098,7 @@ if (interactive()) {
 }
 ```
 
-`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2019", "vignettes/img"), "customMultipleDifferentialExpression.png"))`
+`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "customMultipleDifferentialExpression.png"))`
 
 <!-- ![](img/customMultipleDifferentialExpression.png) -->
 
