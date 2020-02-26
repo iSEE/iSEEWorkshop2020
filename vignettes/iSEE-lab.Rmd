@@ -22,7 +22,8 @@ knitr::opts_chunk$set(
   echo = TRUE,
   cache = FALSE,
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  crop = NA
 )
 suppressPackageStartupMessages({
     require(BiocStyle)
@@ -41,7 +42,7 @@ td > img {
 
 # Interactive visualization of SummarizedExperiment objects with iSEE
 
-## Instructor names and contact information
+## Instructor and contributos names and contact information
 
 * Kevin Rue-Albrecht^[University of Oxford, Oxford, UK] (<kevin.rue-albrecht@kennedy.ox.ac.uk>)
 * Charlotte Soneson^[Friedrich Miescher Institute for Biomedical Research and SIB Swiss Institute of Bioinformatics] (<charlotte.soneson@fmi.ch>)
@@ -174,7 +175,6 @@ In particular, this summary view indicates that the following pieces of informat
 Note that a `SingleCellExperiment` object (or, more generally, any `SummarizedExperiment` object) like this one already contains sufficient information to launch an interactive application instance to visualize the available data and metadata, using the `iSEE()` function.
 
 For the purpose of this workshop, we first apply some preprocessing to the `SingleCellExperiment` object, in order to populate it with more information that can be visualized with `iSEE`.
-The steps below roughly follow those outlined in the `r Biocpkg("simpleSingleCell")` Bioconductor workflow.
 
 We start by adding column names to the object, and use gene symbols instead of Ensembl IDs as row names.
 In the case where multiple Ensembl identifiers correspond to the same gene symbol, the `scater::uniquifyFeatureNames` function concatenates the Ensembl ID and the gene symbol in order to generate unique feature names.
@@ -349,7 +349,7 @@ Depending on the class of the selected annotations, the panel displays either a 
 
 #### Complex heatmap {#heatmap}
 
-The heat map panel displays, for any assay, the observed values for a subset of the features across the samples.
+The complex heatmap panel displays, for any assay, the observed values for a subset of the features across the samples.
 
 `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "heatMap.png"))`
 
@@ -373,17 +373,17 @@ It is also possible to plot the observed values for two samples, in a scatter pl
 
 <!-- ![](img/sampAssayPlot.png) -->
 
-#### Row data table {#rowstattable}
+#### Row data table {#rowdatatable}
 
-The row statistics table displays all information provided in the `rowData` slot of the `SummarizedExperiment` object, leveraging the interactivity provided by the `r CRANpkg("DT")` package.
+The row data table displays all information provided in the `rowData` slot of the `SummarizedExperiment` object, leveraging the interactivity provided by the `r CRANpkg("DT")` package.
 
 `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "rowStatTable.png"))`
 
 <!-- ![](img/rowStatTable.png) -->
 
-#### Column data table {#colstattable}
+#### Column data table {#coldatatable}
 
-Analogous to the [row statistics table](#rowstattable) above, the column statistics table displays all information provided in the `colData` slot of the `SummarizedExperiment` object.
+Analogous to the [row data table](#rowdatatable) above, the column data table displays all information provided in the `colData` slot of the `SummarizedExperiment` object.
 
 `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "colStatTable.png"))`
 
@@ -434,8 +434,8 @@ Links are provided in the last column of the table below.
 
 |                    |                                                                     |                                        |
 |--------------------|:-------------------------------------------------------------------:|----------------------------------------|
-| Organization | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "PanelOrganization.png"))` | [Organize panels](#configuration-ui) |
-| Export        | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "Diagnostics.png"))`       | [Examine panel chart](#transmit-point-selections), [Extract R code](#reproducibility), [Display panel settings](#configuration-ui) |
+| Organization | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "PanelOrganization.png"))` | [Organize panels](#configuration-ui), [Examine panel chart](#transmit-point-selections) |
+| Export        | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "Export.png"))`       | [Download panel output](#download-output), [Extract R code](#reproducibility), [Display panel settings](#configuration-ui) |
 | Documentation      | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "Documentation.png"))`     | [Quick tour](#sharing-tours), [Open the vignette](#more-resources) |
 | Additional info    | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "additionalInfo.png"))`    | [About this session](#reproducibility), [About iSEE](#more-resources) |
 
@@ -449,7 +449,7 @@ Links are provided in the last column of the table below.
 As mentioned above, the default behaviour of the `iSEE()` function is to launch an instance of the user interface that displays one panel of each of the standard types (provided the underlying data is available, e.g. for reduced dimension plots the `reducedDim` slot is required).
 However, in some cases it is desirable to have multiple panels of the same type, and/or exclude some panel types.
 
-In order to accommodate such situations, users can add, remove, change the order of and resize all panels via the `Panel organization` menu in the top-right corner.
+In order to accommodate such situations, users can add, remove, change the order of and resize all panels via the `Organization` menu in the top-right corner.
 
 > <i class="fa fa-wrench fa-2x"></i> **Action:** Using your open `r Biocpkg("iSEE")` instance, open the `Organization` menu (<i class="fa fa-object-group"></i>) and click on the `Organize panels` (<i class="fa fa-object-ungroup"></i>) button.
 Try to add and remove panels, and resize the existing ones.
@@ -463,25 +463,26 @@ Note that the total width of a row in the interface is 12 units.
 When the width of a panel is greater than the space available, the panel is moved to a new row.
 
 It can take a great amount of time to achieve a satisfactory panel configuration.
-To avoid the need to manually organize the panels each time the app is opened, `r Biocpkg("iSEE")` offers the possibility to export the current panel settings.
+To avoid the need to manually organize the panels each time the app is opened, `r Biocpkg("iSEE")` offers the possibility to specify how the app is initialized, as well as to inspect and export the current panel settings for future use.
 
-> <i class="fa fa-wrench fa-2x"></i> **Action:** click on the wrench icon (<i class="fa fa-wrench"></i>) in the top-right corner, and select 'Display panel settings'.
-Scroll to the end of the code in the popup window and copy the definition of the `initialPanels` variable.
 
-For example:
+As a first example, let's assume that we would like to star `iSEE` with the default set of eight panels, but we want each panel to have width equal to 3 rather than the default 4, so that we can fit all the panels in two rows.
+To achieve this, we define a list that we name `initial`, which contains the specifications for all the panels that should be included at startup.
 
 ```{r}
-initial <- list(ReducedDimensionPlot(PanelWidth = 3L, PanelHeight = 460L), 
-                ColumnDataPlot(PanelWidth = 3L, PanelHeight = 460L),
-                RowDataPlot(PanelWidth = 3L, PanelHeight = 460L), 
-                ComplexHeatmapPlot(PanelWidth = 3L, PanelHeight = 460L),
-                FeatureAssayPlot(PanelWidth = 3L, PanelHeight = 460L),
-                SampleAssayPlot(PanelWidth = 3L, PanelHeight = 460L),
-                RowDataTable(PanelWidth = 3L, PanelHeight = 460L),
-                ColumnDataTable(PanelWidth = 3L, PanelHeight = 460L))
+initial <- list(
+  ReducedDimensionPlot(PanelWidth = 3L), 
+  ColumnDataPlot(PanelWidth = 3L),
+  RowDataPlot(PanelWidth = 3L), 
+  ComplexHeatmapPlot(PanelWidth = 3L),
+  FeatureAssayPlot(PanelWidth = 3L),
+  SampleAssayPlot(PanelWidth = 3L),
+  RowDataTable(PanelWidth = 3L),
+  ColumnDataTable(PanelWidth = 3L)
+)
 ```
 
-> <i class="fa fa-wrench fa-2x"></i> **Action:** Close the application, run the code that you just copied in your _R_ session, and relaunch the application, now with the additional argument `initialPanels` set:
+> <i class="fa fa-wrench fa-2x"></i> **Action:** Close the application, run the code above in your _R_ session, and relaunch the application, now with the additional argument `initial` set:
 
 ```{r}
 if (interactive()) {
@@ -489,7 +490,7 @@ if (interactive()) {
 }
 ```
 
-Notice how the panel configuration at startup is now identical to the one you saw just before displaying the panel settings.
+Notice how the panel configuration at startup is now different from the default one.
 
 Now that we have an application consisting of a suitable collection of panels for our data set, we'll explore the collapsible boxes below each plot, which lets us control their appearance. 
 
@@ -588,6 +589,9 @@ if (interactive()) {
 `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "ColorByFeature.png"))`
 
 <!-- ![](img/ColorByFeature.png) -->
+
+> <i class="fa fa-wrench fa-2x"></i> **Action:** click on the download icon (<i class="fa fa-wrench"></i>) in the top-right corner, and select 'Display panel settings'.
+This opens a pop-up window with the code required to generate all the currently visible panels. 
 
 #### Highlighting a single point {#highlight}
 
