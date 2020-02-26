@@ -11,8 +11,10 @@ output:
 bibliography: "`r file.path(system.file(package='iSEEWorkshop2020', 'vignettes/bib'), 'iSEE-lab.bib')`"
 vignette: >
   %\VignetteIndexEntry{Demonstration of iSEE functionality}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -239,9 +241,8 @@ These low-dimensional representations are added to the `reducedDim` slot of the 
 
 ```{r, message=FALSE}
 library(BiocSingular)
-var.stats <- scran::modelGeneVar(sce)
 set.seed(1000)
-sce <- scran::denoisePCA(sce, technical=var.stats)
+sce <- scran::denoisePCA(sce, technical = dec)
 ncol(reducedDim(sce, "PCA"))
 set.seed(1000)
 sce <- scater::runTSNE(sce, use_dimred = "PCA", perplexity = 30)
@@ -346,7 +347,7 @@ Depending on the class of the selected annotations, the panel displays either a 
 
 <!-- ![](img/rowDataPlot.png) -->
 
-#### Heat map {#heatmap}
+#### Complex heatmap {#heatmap}
 
 The heat map panel displays, for any assay, the observed values for a subset of the features across the samples.
 
@@ -372,7 +373,7 @@ It is also possible to plot the observed values for two samples, in a scatter pl
 
 <!-- ![](img/sampAssayPlot.png) -->
 
-#### Row statistics table {#rowstattable}
+#### Row data table {#rowstattable}
 
 The row statistics table displays all information provided in the `rowData` slot of the `SummarizedExperiment` object, leveraging the interactivity provided by the `r CRANpkg("DT")` package.
 
@@ -380,7 +381,7 @@ The row statistics table displays all information provided in the `rowData` slot
 
 <!-- ![](img/rowStatTable.png) -->
 
-#### Column statistics table {#colstattable}
+#### Column data table {#colstattable}
 
 Analogous to the [row statistics table](#rowstattable) above, the column statistics table displays all information provided in the `colData` slot of the `SummarizedExperiment` object.
 
@@ -433,8 +434,8 @@ Links are provided in the last column of the table below.
 
 |                    |                                                                     |                                        |
 |--------------------|:-------------------------------------------------------------------:|----------------------------------------|
-| Panel organization | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "PanelOrganization.png"))` | [Organize panels](#configuration-ui) |
-| Diagnostics        | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "Diagnostics.png"))`       | [Examine panel chart](#transmit-point-selections), [Extract R code](#reproducibility), [Display panel settings](#configuration-ui) |
+| Organization | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "PanelOrganization.png"))` | [Organize panels](#configuration-ui) |
+| Export        | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "Diagnostics.png"))`       | [Examine panel chart](#transmit-point-selections), [Extract R code](#reproducibility), [Display panel settings](#configuration-ui) |
 | Documentation      | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "Documentation.png"))`     | [Quick tour](#sharing-tours), [Open the vignette](#more-resources) |
 | Additional info    | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "additionalInfo.png"))`    | [About this session](#reproducibility), [About iSEE](#more-resources) |
 
@@ -470,22 +471,21 @@ Scroll to the end of the code in the popup window and copy the definition of the
 For example:
 
 ```{r}
-initialPanels <- DataFrame(
-    Name=c("Reduced dimension plot 1", "Column data plot 1", 
-           "Row data plot 1", "Heat map 1", 
-           "Feature assay plot 1", "Sample assay plot 1", 
-           "Row statistics table 1", "Column statistics table 1"
-        ),
-    Width=c(3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L),
-    Height=c(460L, 460L, 460L, 460L, 460L, 460L, 460L, 460L)
-)
+initial <- list(ReducedDimensionPlot(PanelWidth = 3L, PanelHeight = 460L), 
+                ColumnDataPlot(PanelWidth = 3L, PanelHeight = 460L),
+                RowDataPlot(PanelWidth = 3L, PanelHeight = 460L), 
+                ComplexHeatmapPlot(PanelWidth = 3L, PanelHeight = 460L),
+                FeatureAssayPlot(PanelWidth = 3L, PanelHeight = 460L),
+                SampleAssayPlot(PanelWidth = 3L, PanelHeight = 460L),
+                RowDataTable(PanelWidth = 3L, PanelHeight = 460L),
+                ColumnDataTable(PanelWidth = 3L, PanelHeight = 460L))
 ```
 
 > <i class="fa fa-wrench fa-2x"></i> **Action:** Close the application, run the code that you just copied in your _R_ session, and relaunch the application, now with the additional argument `initialPanels` set:
 
 ```{r}
 if (interactive()) {
-    iSEE(sce, initialPanels = initialPanels)
+    iSEE(sce, initial = initial)
 }
 ```
 
@@ -505,16 +505,12 @@ Notably, the instance can be preconfigured to immediately display the t-SNE repr
 > <i class="fa fa-wrench fa-2x"></i> **Action:** Close the application and run the following block of code to show two _Reduced dimension plot_ panels; one showing the PCA representation, one showing the t-SNE representation.
 
 ```{r}
-redDimArgs <- redDimPlotDefaults(sce, 2)
-redDimArgs[1, "Type"] <- "PCA"
-redDimArgs[2, "Type"] <- "TSNE"
-initialPanels <- DataFrame(
-    Name=c("Reduced dimension plot 1", "Reduced dimension plot 2"),
-    Width=c(4L, 4L),
-    Height=c(400, 400)
+initial <- list(
+  ReducedDimensionPlot(Type = "PCA", PanelWidth = 4L, PanelHeight = 400L),
+  ReducedDimensionPlot(Type = "TSNE", PanelWidth = 4L, PanelHeight = 400L)
 )
 if (interactive()) {
-    iSEE(sce, redDimArgs = redDimArgs, initialPanels = initialPanels)
+    iSEE(sce, initial = initial)
 }
 ```
 
@@ -543,16 +539,12 @@ The instance can be preconfigured to control the coloring of data points, to dis
 
 
 ```{r}
-redDimArgs[["ColorBy"]] <- "Column data"
-redDimArgs[1, "ColorByColData"] <- "log10_total"
-redDimArgs[2, "ColorByColData"] <- "Cluster"
-initialPanels <- DataFrame(
-    Name=c("Reduced dimension plot 1", "Reduced dimension plot 2"),
-    Width=c(4L, 4L),
-    Height=c(400, 400)
+initial <- list(
+  ReducedDimensionPlot(Type = "PCA", ColorBy = "Column data", ColorByColumnData = "log10_total"),
+  ReducedDimensionPlot(Type = "TSNE", ColorBy = "Column data", ColorByColumnData = "Cluster")
 )
 if (interactive()) {
-    iSEE(sce, redDimArgs = redDimArgs, initialPanels = initialPanels)
+    iSEE(sce, initial = initial)
 }
 ```
 
@@ -580,21 +572,16 @@ In the second and third panel, we display _CD79A_ and _CD74_, a combination of g
 ```{r}
 ## The displayed features IDs must be row names of the object
 c("CD79A", "CD74") %in% rownames(sce)
-
-redDimArgs <- redDimPlotDefaults(sce, 3)
-redDimArgs[["Type"]] <- "TSNE"
-redDimArgs[1, "ColorBy"] <- "Column data"
-redDimArgs[1, "ColorByColData"] <- "Cluster"
-redDimArgs[2:3, "ColorBy"] <- "Feature name"
-redDimArgs[2, "ColorByFeatName"] <- "CD79A"
-redDimArgs[3, "ColorByFeatName"] <- "CD74"
-initialPanels <- DataFrame(
-    Name=paste("Reduced dimension plot", 1:3),
-    Width=rep(4L, 3L),
-    Height=rep(400, 3L)
+initial <- list(
+  ReducedDimensionPlot(Type = "TSNE", ColorBy = "Column data", ColorByColumnData = "Cluster"),
+  ReducedDimensionPlot(Type = "TSNE", ColorBy = "Feature name", ColorByFeatureName = "CD79A",
+                       ColorByFeatureNameAssay = "logcounts"),
+  ReducedDimensionPlot(Type = "TSNE", ColorBy = "Feature name", ColorByFeatureName = "CD74",
+                       ColorByFeatureNameAssay = "logcounts")
 )
+
 if (interactive()) {
-    iSEE(sce, redDimArgs = redDimArgs, initialPanels = initialPanels)
+    iSEE(sce, initial = initial)
 }
 ```
 
@@ -615,17 +602,20 @@ Note that it is more robust to provide the numerical index of the sample in the 
 We also open the _Visual parameters_ collapsible box to highlight the preconfigured options.
 
 ```{r}
-redDimArgs[2:3, "ColorBy"] <- "Sample name"
-redDimArgs[2, "ColorBySampName"] <- match("Cell2439", colnames(sce))
-redDimArgs[3, "ColorBySampName"] <- match("Cell673", colnames(sce))
-redDimArgs[["VisualBoxOpen"]] <- TRUE
-initialPanels <- DataFrame(
-    Name=paste("Reduced dimension plot", 1:3),
-    Width=rep(4L, 3L),
-    Height=rep(400, 3L)
+initial <- list(
+  ReducedDimensionPlot(Type = "TSNE", ColorBy = "Column data", 
+                       ColorByColumnData = "Cluster",
+                       VisualBoxOpen = TRUE),
+  ReducedDimensionPlot(Type = "TSNE", ColorBy = "Sample name", 
+                       ColorBySampleName = "Cell2439",
+                       VisualBoxOpen = TRUE),
+  ReducedDimensionPlot(Type = "TSNE", ColorBy = "Sample name", 
+                       ColorBySampleName = "Cell673",
+                       VisualBoxOpen = TRUE)
 )
+
 if (interactive()) {
-    iSEE(sce, redDimArgs = redDimArgs, initialPanels = initialPanels)
+    iSEE(sce, initial = initial)
 }
 ```
 
@@ -646,20 +636,27 @@ We also apply a downsampling grid of 100 horizontal and vertical bins to the plo
 Finally, we display the `Shape` and `Points` options.
 
 ```{r}
-redDimArgs[2:3, "PointSize"] <- 0.4
-redDimArgs[2:3, "PointAlpha"] <- 0.4
-redDimArgs[["VisualBoxOpen"]] <- TRUE
-redDimArgs[["Downsample"]] <- TRUE
-redDimArgs[["SampleRes"]] <- 200
-redDimArgs[["VisualChoices"]][[2]] <- list("Shape", "Points")
-redDimArgs[["VisualChoices"]][[3]] <- list("Shape", "Points")
-initialPanels <- DataFrame(
-    Name=paste("Reduced dimension plot", 1:3),
-    Width=rep(4L, 3L),
-    Height=rep(400, 3L)
+initial <- list(
+  ReducedDimensionPlot(Type = "TSNE", ColorBy = "Column data", 
+                       ColorByColumnData = "Cluster",
+                       VisualBoxOpen = TRUE, Downsample = TRUE, 
+                       DownsampleResolution = 200),
+  ReducedDimensionPlot(Type = "TSNE", ColorBy = "Sample name", 
+                       ColorBySampleName = "Cell2439",
+                       VisualBoxOpen = TRUE, PointSize = 0.4,
+                       PointAlpha = 0.4, Downsample = TRUE, 
+                       DownsampleResolution = 200,
+                       VisualChoices = c("Shape", "Points")),
+  ReducedDimensionPlot(Type = "TSNE", ColorBy = "Sample name", 
+                       ColorBySampleName = "Cell673",
+                       VisualBoxOpen = TRUE, PointSize = 0.4,
+                       PointAlpha = 0.4, Downsample = TRUE, 
+                       DownsampleResolution = 200,
+                       VisualChoices = c("Shape", "Points"))
 )
+
 if (interactive()) {
-    iSEE(sce, redDimArgs = redDimArgs, initialPanels = initialPanels)
+    iSEE(sce, initial = initial)
 }
 ```
 
@@ -691,21 +688,15 @@ We set up the _Column data plot_ panel to immediately examine the proportion of 
 We set up the _Row data plot_ panel to examine the proportion of cells with detectable expression against the log-transformed total counts for each gene.
 
 ```{r}
-colDataArgs <- colDataPlotDefaults(sce, 1)
-colDataArgs[1, "YAxis"] <- "subsets_MT_percent"
-colDataArgs$XAxis <- "Column data"
-colDataArgs[1, "XAxisColData"] <- "Cluster"
-rowDataArgs <- rowDataPlotDefaults(sce, 1)
-rowDataArgs[1, "YAxis"] <- "n_cells"
-rowDataArgs$XAxis <- "Row data"
-rowDataArgs[1, "XAxisRowData"] <- "log10_total"
-initialPanels <- DataFrame(
-    Name=c("Column data plot 1", "Row data plot 1"),
-    Width=rep(4L, 2L),
-    Height=rep(400, 2L)
+initial <- list(
+  ColumnDataPlot(YAxis = "subsets_MT_percent", XAxis = "Column data",
+                 XAxisColumnData = "Cluster"),
+  RowDataPlot(YAxis = "n_cells", XAxis = "Row data",
+              XAxisRowData = "log10_total")
 )
+
 if (interactive()) {
-    iSEE(sce, colDataArgs = colDataArgs, rowDataArgs = rowDataArgs, initialPanels = initialPanels)
+    iSEE(sce, initial = initial)
 }
 ```
 
@@ -734,24 +725,22 @@ All three panels display the same gene on the Y-axis and color data points accor
 On the X-axis, the first panel displays a discrete sample metadata variable, the cluster label; the second panel display a continuous sample metadata variable, the log-transformed library size; the third panel displays the expression of a second gene.
 
 ```{r}
-featAssayArgs <- featAssayPlotDefaults(sce, 3)
-featAssayArgs[["ColorBy"]] <- "Column data"
-featAssayArgs[["ColorByColData"]] <- "Cluster"
-featAssayArgs[["YAxisFeatName"]] <- match("CD3D", rownames(sce))
-featAssayArgs[1, "XAxis"] <- "Column data"
-featAssayArgs[1, "XAxisColData"] <- "Cluster"
-featAssayArgs[2, "XAxis"] <- "Column data"
-featAssayArgs[2, "XAxisColData"] <- "log10_total"
-featAssayArgs[3, "XAxis"] <- "Feature name"
-featAssayArgs[3, "XAxisFeatName"] <- match("CD40LG", rownames(sce))
-featAssayArgs[["DataBoxOpen"]] <- TRUE
-initialPanels <- DataFrame(
-    Name=paste("Feature assay plot", 1:3),
-    Width=rep(4L, 3L),
-    Height=rep(400, 3L)
+initial <- list(
+  FeatureAssayPlot(ColorBy = "Column data", ColorByColumnData = "Cluster", 
+                   YAxisFeatureName = "CD3D", XAxis = "Column data",
+                   XAxisColumnData = "Cluster", DataBoxOpen = TRUE, 
+                   Assay = "logcounts"),
+  FeatureAssayPlot(ColorBy = "Column data", ColorByColumnData = "Cluster", 
+                   YAxisFeatureName = "CD3D", XAxis = "Column data",
+                   XAxisColumnData = "log10_total", DataBoxOpen = TRUE, 
+                   Assay = "logcounts"),
+  FeatureAssayPlot(ColorBy = "Column data", ColorByColumnData = "Cluster", 
+                   YAxisFeatureName = "CD3D", XAxis = "Feature name",
+                   XAxisFeatureName = "CD40LG", DataBoxOpen = TRUE, 
+                   Assay = "logcounts")
 )
 if (interactive()) {
-    iSEE(sce, featAssayArgs = featAssayArgs, initialPanels = initialPanels)
+    iSEE(sce, initial = initial)
 }
 ```
 
@@ -781,45 +770,25 @@ Alternatively, we use the _Column data plot_ to demonstrate how the selection ca
 > <i class="fa fa-wrench fa-2x"></i> **Action:** Close the app and run the following block of code to launch the example application described above.
 
 ```{r}
-featAssayArgs <- featAssayPlotDefaults(sce, 2)
-featAssayArgs[1, "YAxisFeatName"] <- match("CD3D", rownames(sce))
-featAssayArgs$BrushData[[1]] <-  list(
+initial <- list(
+  FeatureAssayPlot(YAxisFeatureName = "CD3D", BrushData = list(
     xmin = 0.5, xmax = 12.5, ymin = 0.5, ymax = 5.7,
     mapping = list(x = "X", y = "Y", group = "GroupBy"),
     direction = "xy", 
-    brushId = "featAssayPlot1_Brush", outputId = "featAssayPlot1")
-featAssayArgs[1, "XAxis"] <- "Column data"
-featAssayArgs[1, "XAxisColData"] <- "Cluster"
-featAssayArgs[1, "ColorBy"] <- "Column data"
-featAssayArgs[1, "ColorByColData"] <- "Cluster"
-redDimArgs <- redDimPlotDefaults(sce, 2)
-redDimArgs[1, "SelectByPlot"] <- "Feature assay plot 1"
-redDimArgs[1, "Type"] <- match("TSNE", reducedDimNames(sce))
-redDimArgs[1, "ColorBy"] <- "Column data"
-redDimArgs[1, "ColorByColData"] <- "Cluster"
-redDimArgs[1, "SelectBoxOpen"] <- TRUE
-colDataArgs <- colDataPlotDefaults(sce, 2)
-colDataArgs[1, "SelectByPlot"] <- "Feature assay plot 1"
-colDataArgs[1, "SelectEffect"] <- "Color"
-colDataArgs[1, "YAxis"] <- "log10_total"
-colDataArgs[1, "XAxis"] <- "Column data"
-colDataArgs[1, "XAxisColData"] <- "subsets_MT_percent"
-colDataArgs[1, "ColorBy"] <- "Column data"
-colDataArgs[1, "ColorByColData"] <- "Cluster"
-colDataArgs[1, "SelectBoxOpen"] <- TRUE
-initialPanels <- DataFrame(
-    Name=c(
-        "Feature assay plot 1", "Reduced dimension plot 1", "Column data plot 1",
-        "Feature assay plot 2", "Reduced dimension plot 2", "Column data plot 2"),
-    Width=rep(4L, 3L),
-    Height=rep(400, 3L)
+    brushId = "featAssayPlot1_Brush", outputId = "featAssayPlot1"),
+    XAxis = "Column data", XAxisColumnData = "Cluster",
+    ColorBy = "Column data", ColorByColumnData = "Cluster"),
+  ReducedDimensionPlot(ColumnSelectionSource = "Feature assay plot 1",
+                       Type = "TSNE", ColorBy = "Column data",
+                       ColorByColumnData = "Cluster", SelectionBoxOpen = TRUE),
+  ColumnDataPlot(ColumnSelectionSource = "Feature assay plot 1", SelectionEffect = "Color",
+                 YAxis = "log10_total", XAxis = "Column data",
+                 XAxisColumnData = "subsets_MT_percent", ColorBy = "Column data",
+                 ColorByColumnData = "Cluster", SelectionBoxOpen = TRUE)
 )
+
 if (interactive()) {
-    iSEE(
-        sce,
-        redDimArgs = redDimArgs, colDataArgs = colDataArgs, featAssayArgs = featAssayArgs,
-        initialPanels = initialPanels
-    )
+    iSEE(sce, initial = initial)
 }
 ```
 
@@ -847,24 +816,20 @@ Double-click on the area selected in the first panel to zoom and display the sam
 Double click again anywhere in the panel to zoom out.
 
 ```{r}
-redDimArgs <- redDimPlotDefaults(sce, 2)
-redDimArgs[["Type"]] <- "TSNE"
-redDimArgs[["ColorBy"]] <- "Column data"
-redDimArgs[["ColorByColData"]] <- "Cluster"
-redDimArgs[1, "PointSize"] <- 1
-redDimArgs[2, "PointSize"] <- 2
-redDimArgs[["BrushData"]][[1]] <- list(
+initial <- list(
+  ReducedDimensionPlot(Type = "TSNE", ColorBy = "Column data", 
+                       ColorByColumnData = "Cluster", PointSize = 1,
+                       BrushData = list(
     xmin = 3.4, xmax = 27.3, ymin = 0.8, ymax = 30.0, 
     log = list(x = NULL, y = NULL), mapping = list(x = "X", y = "Y", colour = "ColorBy"),
-    direction = "xy", brushId = "redDimPlot1_Brush", outputId = "redDimPlot1")
-redDimArgs[["ZoomData"]] [[2]] <- c(xmin = 3.4, xmax = 27.3, ymin = 0.8, ymax = 30.0)
-initialPanels <- DataFrame(
-    Name=c("Reduced dimension plot 1", "Reduced dimension plot 2"),
-    Width=rep(6L, 2L),
-    Height=rep(400, 2L)
+    direction = "xy", brushId = "redDimPlot1_Brush", outputId = "redDimPlot1")),
+  ReducedDimensionPlot(Type = "TSNE", ColorBy = "Column data", 
+                       ColorByColumnData = "Cluster", PointSize = 2,
+                       ZoomData = c(xmin = 3.4, xmax = 27.3, ymin = 0.8, ymax = 30.0))
 )
+
 if (interactive()) {
-    iSEE(sce, redDimArgs = redDimArgs, initialPanels = initialPanels)
+    iSEE(sce, initial = initial)
 }
 ```
 
@@ -886,16 +851,13 @@ In addition, we also preselect the cell named "Cell684".
 ```{r}
 sce1 <- sce
 colData(sce1) <- colData(sce1)[, c("Cluster", "total", "subsets_MT_percent")]
-colStatArgs <- colStatTableDefaults(sce1, 1)
-colStatArgs[["SearchColumns"]][[1]] <- c("[\"3\", \"5\"]", "5000 ... 15844", "")
-colStatArgs[["Selected"]] <- match("Cell384", colnames(sce1))
-initialPanels <- DataFrame(
-    Name=c("Column statistics table 1"),
-    Width=c(12L),
-    Height=c(600)
+initial <- list(
+  ColumnDataTable(SearchColumns = c("[\"3\", \"5\"]", "5000 ... 15844", ""),
+                  Selected = "Cell943", PanelWidth = 12L)
 )
+
 if (interactive()) {
-    iSEE(sce1, colStatArgs = colStatArgs, initialPanels = initialPanels)
+    iSEE(sce1, initial = initial)
 }
 ```
 
@@ -909,19 +871,15 @@ Notably the preselected cell can be used to immediately establish a relationship
 Select different rows of the cell to see the _Reduced dimension plot_ panel update accordingly.
 
 ```{r}
-redDimArgs <- redDimPlotDefaults(sce1, 1)
-redDimArgs[["Type"]] <- "TSNE"
-redDimArgs$VisualBoxOpen <- TRUE
-redDimArgs$ColorBy <- "Sample name"
-redDimArgs$ColorByColTable <- "Column statistics table 1"
-initialPanels <- DataFrame(
-    Name=c("Column statistics table 1", "Reduced dimension plot 1"),
-    Width=c(6L, 6L),
-    Height=c(600, 400)
+initial <- list(
+  ColumnDataTable(SearchColumns = c("[\"3\", \"5\"]", "5000 ... 15844", ""),
+                  Selected = "Cell943"),
+  ReducedDimensionPlot(Type = "TSNE", VisualBoxOpen = TRUE,
+                       ColorBy = "Sample name", 
+                       ColorBySampleSource = "Column data table 1")
 )
 if (interactive()) {
-    iSEE(sce1, redDimArgs = redDimArgs, colStatArgs = colStatArgs,
-        initialPanels = initialPanels)
+    iSEE(sce1, initial = initial)
 }
 ```
 
@@ -944,12 +902,7 @@ Of course, it is still possible to continue exploring the data interactively - w
 
 ```{r}
 if (interactive()) {
-    iSEE(sce, redDimArgs = redDimPlotArgs, colDataArgs = colDataPlotArgs,
-         featAssayArgs = featAssayPlotArgs, rowStatArgs = rowStatTableArgs,
-         rowDataArgs = rowDataPlotArgs, sampAssayArgs = sampAssayPlotArgs,
-         colStatArgs = colStatTableArgs, customDataArgs = customDataPlotArgs,
-         customStatArgs = customStatTableArgs, heatMapArgs = heatMapPlotArgs,
-         initialPanels = initialPanels)
+    iSEE(sce1, initial = initial)
 }
 ```
 
@@ -996,33 +949,33 @@ Then, in the _Data parameters box_ in the custom panel, use the 'Custom argument
 Note how iSEE detects that the input arguments were changed, and prompts you to update the plot. 
 
 ```{r}
-customDataArgs <- customDataPlotDefaults(sce, 1)
-customDataArgs$Function <- "CUSTOM_PCA"
-customDataArgs$Arguments <- "colour_by Cluster\nscale_features FALSE"
-customDataArgs$ColumnSource <- "Reduced dimension plot 1"
-customDataArgs$RowSource <- "Row data plot 1"
-customDataArgs$DataBoxOpen <- TRUE
-rowDataArgs <- rowDataPlotDefaults(sce, 1)
-rowDataArgs$YAxis <- "detected"
-rowDataArgs$XAxis <- "Row data"
-rowDataArgs$XAxisRowData <- "log10_total"
-redDimArgs <- redDimPlotDefaults(sce, 1)
-redDimArgs$Type <- "TSNE"
-redDimArgs$ColorBy <- "Column data"
-redDimArgs$ColorByColData <- "Cluster"
-initialPanels <- DataFrame(
-    Name = c("Reduced dimension plot 1", "Row data plot 1", "Custom data plot 1"),
-    Width = c(4L, 4L, 4L)
-)
-if (interactive()) {
-  iSEE(
-      sce,
-      customDataArgs = customDataArgs,
-      rowDataArgs = rowDataArgs, redDimArgs = redDimArgs,
-      initialPanels = initialPanels,
-      customDataFun = list(CUSTOM_PCA = CUSTOM_PCA)
-  )
-}
+# customDataArgs <- customDataPlotDefaults(sce, 1)
+# customDataArgs$Function <- "CUSTOM_PCA"
+# customDataArgs$Arguments <- "colour_by Cluster\nscale_features FALSE"
+# customDataArgs$ColumnSource <- "Reduced dimension plot 1"
+# customDataArgs$RowSource <- "Row data plot 1"
+# customDataArgs$DataBoxOpen <- TRUE
+# rowDataArgs <- rowDataPlotDefaults(sce, 1)
+# rowDataArgs$YAxis <- "detected"
+# rowDataArgs$XAxis <- "Row data"
+# rowDataArgs$XAxisRowData <- "log10_total"
+# redDimArgs <- redDimPlotDefaults(sce, 1)
+# redDimArgs$Type <- "TSNE"
+# redDimArgs$ColorBy <- "Column data"
+# redDimArgs$ColorByColData <- "Cluster"
+# initialPanels <- DataFrame(
+#     Name = c("Reduced dimension plot 1", "Row data plot 1", "Custom data plot 1"),
+#     Width = c(4L, 4L, 4L)
+# )
+# if (interactive()) {
+#   iSEE(
+#       sce,
+#       customDataArgs = customDataArgs,
+#       rowDataArgs = rowDataArgs, redDimArgs = redDimArgs,
+#       initialPanels = initialPanels,
+#       customDataFun = list(CUSTOM_PCA = CUSTOM_PCA)
+#   )
+# }
 ```
 
 `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "customPCA.png"))`
@@ -1070,35 +1023,35 @@ CUSTOM_DIFFEXP <- function(se, ri, ci, assay="logcounts") {
 Select multiple subsets of the points in the reduced dimension plot (e.g., clusters) and note how the DE table in the custom panel is updated. 
 
 ```{r}
-customStatArgs <- customStatTableDefaults(sce, 1)
-customStatArgs$Function <- "CUSTOM_DIFFEXP"
-customStatArgs$Arguments <- ""
-customStatArgs$ColumnSource <- "Reduced dimension plot 1"
-customStatArgs$RowSource <- "Row data plot 1"
-customStatArgs$DataBoxOpen <- TRUE
-rowDataArgs <- rowDataPlotDefaults(sce, 1)
-rowDataArgs$YAxis <- "detected"
-rowDataArgs$XAxis <- "Row data"
-rowDataArgs$XAxisRowData <- "log10_total"
-redDimArgs <- redDimPlotDefaults(sce, 1)
-redDimArgs$Type <- "TSNE"
-redDimArgs$ColorBy <- "Column data"
-redDimArgs$ColorByColData <- "Cluster"
-redDimArgs$SelectBoxOpen <- TRUE
-initialPanels <- DataFrame(
-    Name = c("Reduced dimension plot 1", "Row data plot 1", "Custom statistics table 1"),
-    Width = c(4L, 4L, 4L)
-)
-if (interactive()) {
-  iSEE(
-      sce,
-      customStatArgs = customStatArgs,
-      rowDataArgs = rowDataArgs, redDimArgs = redDimArgs,
-      initialPanels = initialPanels,
-      customStatFun = list(CUSTOM_DIFFEXP = CUSTOM_DIFFEXP),
-    customSendAll = TRUE
-  )
-}
+# customStatArgs <- customStatTableDefaults(sce, 1)
+# customStatArgs$Function <- "CUSTOM_DIFFEXP"
+# customStatArgs$Arguments <- ""
+# customStatArgs$ColumnSource <- "Reduced dimension plot 1"
+# customStatArgs$RowSource <- "Row data plot 1"
+# customStatArgs$DataBoxOpen <- TRUE
+# rowDataArgs <- rowDataPlotDefaults(sce, 1)
+# rowDataArgs$YAxis <- "detected"
+# rowDataArgs$XAxis <- "Row data"
+# rowDataArgs$XAxisRowData <- "log10_total"
+# redDimArgs <- redDimPlotDefaults(sce, 1)
+# redDimArgs$Type <- "TSNE"
+# redDimArgs$ColorBy <- "Column data"
+# redDimArgs$ColorByColData <- "Cluster"
+# redDimArgs$SelectBoxOpen <- TRUE
+# initialPanels <- DataFrame(
+#     Name = c("Reduced dimension plot 1", "Row data plot 1", "Custom statistics table 1"),
+#     Width = c(4L, 4L, 4L)
+# )
+# if (interactive()) {
+#   iSEE(
+#       sce,
+#       customStatArgs = customStatArgs,
+#       rowDataArgs = rowDataArgs, redDimArgs = redDimArgs,
+#       initialPanels = initialPanels,
+#       customStatFun = list(CUSTOM_DIFFEXP = CUSTOM_DIFFEXP),
+#     customSendAll = TRUE
+#   )
+# }
 ```
 
 `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "customMultipleDifferentialExpression.png"))`
@@ -1117,20 +1070,16 @@ To this end, `r Biocpkg("iSEE")` lets you export the exact R code used to create
 > <i class="fa fa-wrench fa-2x"></i> **Action:** Close the application and run the following block of code to set up 3 panels, all displaying the t-SNE representation.
 
 ```{r}
-redDimArgs <- redDimPlotDefaults(sce, 3)
-redDimArgs[["Type"]] <- "TSNE"
-redDimArgs[1, "ColorBy"] <- "Column data"
-redDimArgs[1, "ColorByColData"] <- "Cluster"
-redDimArgs[2:3, "ColorBy"] <- "Feature name"
-redDimArgs[2, "ColorByFeatName"] <- "CD79A"
-redDimArgs[3, "ColorByFeatName"] <- "CD74"
-initialPanels <- DataFrame(
-    Name=paste("Reduced dimension plot", 1:3),
-    Width=rep(4L, 3L),
-    Height=rep(400, 3L)
+initial <- list(
+  ReducedDimensionPlot(Type = "TSNE", ColorBy = "Column data", 
+                       ColorByColumnData = "Cluster"),
+  ReducedDimensionPlot(Type = "TSNE", ColorBy = "Feature name", 
+                       ColorByFeatureName = "CD79A", ColorByFeatureNameAssay = "logcounts"),
+  ReducedDimensionPlot(Type = "TSNE", ColorBy = "Feature name", 
+                       ColorByFeatureName = "CD74", ColorByFeatureNameAssay = "logcounts")
 )
 if (interactive()) {
-    iSEE(sce, redDimArgs = redDimArgs, initialPanels = initialPanels)
+    iSEE(sce, initial = initial)
 }
 ```
 
@@ -1140,38 +1089,52 @@ Close the app and paste the code in your R session.
 Note how this recreates the first reduced dimension plot from the app. 
 
 ```{r}
+## The following list of commands will generate the plots created in iSEE
+## Copy them into a script or an R session containing your SingleCellExperiment.
+## All commands below refer to your SingleCellExperiment object as `se`.
+
 se <- sce
-colData(se)[,"sizeFactors(se)"] <- sizeFactors(se)
 colormap <- ExperimentColorMap()
 colormap <- synchronizeAssays(colormap, se)
-all_coordinates <- list()
-custom_data_fun <- NULL
-custom_stat_fun <- NULL
+all_contents <- list()
+
+################################################################################
+# Defining brushes
+################################################################################
+
+all_active <- list()
+all_active[['ReducedDimensionPlot1']] <- list()
+all_active[['ReducedDimensionPlot2']] <- list()
+all_active[['ReducedDimensionPlot3']] <- list()
 
 ################################################################################
 ## Reduced dimension plot 1
 ################################################################################
 
-red.dim <- reducedDim(se, 2);
-plot.data <- data.frame(X = red.dim[, 1], Y = red.dim[, 2], row.names=colnames(se));
-plot.data$ColorBy <- colData(se)[,"Cluster"];
+
+red.dim <- reducedDim(se, "TSNE");
+plot.data <- data.frame(X=red.dim[, 1], Y=red.dim[, 2], row.names=colnames(se));
+
+plot.data$ColorBy <- colData(se)[, "Cluster"];
+
 plot.data <- subset(plot.data, !is.na(X) & !is.na(Y));
 
-# Saving data for transmission
-all_coordinates[['redDimPlot1']] <- plot.data
-
-# Creating the plot
 ggplot() +
-    geom_point(aes(x = X, y = Y, color = ColorBy), alpha = 1, plot.data, size=1) +
-    labs(x = "Dimension 1", y = "Dimension 2", color = "Cluster", title = "(2) TSNE") +
-    coord_cartesian(xlim = range(plot.data$X, na.rm = TRUE),
-        ylim = range(plot.data$Y, na.rm = TRUE), expand = TRUE) +
+    geom_point(aes(x=X, y=Y, color=ColorBy), alpha=1, plot.data, size=1) +
+    labs(x="Dimension 1", y="Dimension 2", color="Cluster", title="TSNE") +
+    coord_cartesian(xlim=range(plot.data$X, na.rm=TRUE),
+        ylim=range(plot.data$Y, na.rm=TRUE), expand=TRUE) +
     scale_color_manual(values=colDataColorMap(colormap, "Cluster", discrete=TRUE)(14), na.value='grey50', drop=FALSE) +
-    scale_fill_manual(values=colDataColorMap(colormap, "Cluster", discrete=TRUE)(12), na.value='grey50', drop=FALSE) +
+    scale_fill_manual(values=colDataColorMap(colormap, "Cluster", discrete=TRUE)(14), na.value='grey50', drop=FALSE) +
     theme_bw() +
-    theme(legend.position = 'bottom', legend.box = 'vertical', legend.text=element_text(size=9), legend.title=element_text(size=11),
+    theme(legend.position='bottom', legend.box='vertical', legend.text=element_text(size=9), legend.title=element_text(size=11),
             axis.text=element_text(size=10), axis.title=element_text(size=12), title=element_text(size=12))
+
+# Saving data for transmission
+all_contents[['ReducedDimensionPlot1']] <- plot.data
+
 ```
+
 
 ### Sharing and communication {#sharing-tours}
 
@@ -1197,7 +1160,7 @@ tour <- data.frame(
         "Thank you for taking this tour!"),
     stringsAsFactors = FALSE)
 if (interactive()) {
-    iSEE(sce, redDimArgs = redDimArgs, initialPanels = initialPanels, tour = tour)
+    iSEE(sce, initial = initial, tour = tour)
 }
 ```
 
