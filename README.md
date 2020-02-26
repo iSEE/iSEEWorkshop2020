@@ -23,7 +23,7 @@ The instructor-led live demo comprises three parts:
 2. Overview of the graphical user interface
 3. Instructions to preconfigure [_iSEE_](http://bioconductor.org/packages/iSEE/) apps
 
-The hands-on lab comprises three part:
+The hands-on lab comprises three parts:
 
 1. Inspection of single-cell RNA-seq data at various steps of a typical computational workflow, including quality control and dimensionality reduction
 2. Addition of custom panels to the user interface for advanced visualization.
@@ -43,6 +43,9 @@ Additional background reading about the programming environment, relevant packag
 * Shiny from RStudio: https://shiny.rstudio.com
 * SummarizedExperiment paper: https://www.nature.com/articles/nmeth.3252 (Figure 2)
 * iSEE paper: https://f1000research.com/articles/7-741/v1
+* "Orchestrating single-cell analysis with Bioconductor", https://www.nature.com/articles/s41592-019-0654-x, Nat Methods 17, 137–145 (2020)
+  * https://osca.bioconductor.org, as an online companion to the manuscript above
+* https://github.com/iSEE/iSEEu for extending the functionality of [_iSEE_](http://bioconductor.org/packages/iSEE/)
 
 ## Workshop Participation
 
@@ -65,7 +68,7 @@ There is also scope for participants to apply  [_iSEE_](http://bioconductor.org/
 | **Live demo**: the user interface             | 15m  |
 | **Lab**: Configuring the app interface        | 20m  |
 | **Lab**: A single-cell RNA-seq workflow       | 20m  |
-| **Lab**: Custom panels                        | 20m  |
+| **Lab**: Custom panels and advanced features  | 20m  |
 | Additional questions                          | 15m  |
 
 **Total:** 1h45
