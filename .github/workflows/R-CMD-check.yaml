@@ -21,8 +21,8 @@ jobs:
 
       - name: Query dependencies
         run: |
-          install.packages('remotes')
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+          install.packages(c('remotes', 'BiocManager'))
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE, repos = c(getOption('repos'), BiocManager::repositories())), ".github/depends.Rds", version = 2)
         shell: Rscript {0}
 
       - name: Install system dependencies
@@ -58,6 +58,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          Rscript -e "install.packages(c('remotes', 'BiocManager'))"
           Rscript -e "remotes::install_dev('pkgdown'); pkgdown::deploy_to_branch(new_process = FALSE)"
         shell: bash {0}
 
