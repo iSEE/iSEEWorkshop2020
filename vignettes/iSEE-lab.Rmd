@@ -42,9 +42,9 @@ td > img {
 
 # Interactive visualization of SummarizedExperiment objects with iSEE
 
-## Instructor and contributos names and contact information
+## Instructor and contributor names and contact information
 
-* Kevin Rue-Albrecht^[University of Oxford, Oxford, UK] (<kevin.rue-albrecht@kennedy.ox.ac.uk>)
+* Kevin Rue-Albrecht^[University of Oxford, Oxford, UK] (<kevin.rue-albrecht@ndcls.ox.ac.uk>)
 * Charlotte Soneson^[Friedrich Miescher Institute for Biomedical Research and SIB Swiss Institute of Bioinformatics] (<charlotte.soneson@fmi.ch>)
 * Federico Marini^[Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI), Mainz and Center for Thrombosis and Hemostasis (CTH), Mainz] (<marinif@uni-mainz.de>)
 * Aaron Lun^[Genentech, Bioinformatics and Computational Biology] (<infinite.monkeys.with.keyboards@gmail.com>)
@@ -650,13 +650,13 @@ initial <- list(
                        VisualBoxOpen = TRUE, PointSize = 0.4,
                        PointAlpha = 0.4, Downsample = TRUE, 
                        DownsampleResolution = 200,
-                       VisualChoices = c("Shape", "Points")),
+                       VisualChoices = c("Shape", "Point")),
   ReducedDimensionPlot(Type = "TSNE", ColorBy = "Sample name", 
                        ColorBySampleName = "Cell673",
                        VisualBoxOpen = TRUE, PointSize = 0.4,
                        PointAlpha = 0.4, Downsample = TRUE, 
                        DownsampleResolution = 200,
-                       VisualChoices = c("Shape", "Points"))
+                       VisualChoices = c("Shape", "Point"))
 )
 
 if (interactive()) {
