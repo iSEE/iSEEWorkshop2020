@@ -1,5 +1,6 @@
 <!-- badges: start -->
   [![Travis build status](https://travis-ci.com/iSEE/iSEEWorkshop2020.svg?branch=master)](https://travis-ci.com/iSEE/iSEEWorkshop2020)
+[![R build status](https://github.com/iSEE/iSEEWorkshop2020/workflows/R-CMD-check/badge.svg)](https://github.com/iSEE/iSEEWorkshop2020/actions)
 <!-- badges: end -->
 
 # iSEE: Interactive visualization of `SummarizedExperiment` objects <img src="man/figures/logo.png" align="right" width="240" height="278">
