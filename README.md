@@ -1,5 +1,6 @@
 <!-- badges: start -->
   [![Travis build status](https://travis-ci.com/iSEE/iSEEWorkshop2020.svg?branch=master)](https://travis-ci.com/iSEE/iSEEWorkshop2020)
+[![R build status](https://github.com/iSEE/iSEEWorkshop2020/workflows/R-CMD-check/badge.svg)](https://github.com/iSEE/iSEEWorkshop2020/actions)
 <!-- badges: end -->
 
 # iSEE: Interactive visualization of `SummarizedExperiment` objects <img src="man/figures/logo.png" align="right" width="240" height="278">
@@ -34,7 +35,7 @@ Participants are encouraged to ask questions at any time during the workshop.
 ## Pre-requisites
 
 * Basic knowledge of [_R_](https://www.r-project.org/about.html) syntax and the use of data-frames
-* Familiarity with the [`SummarizedExperiment`](http://bioconductor.org/packages/SummarizedExperiment) and [`SingleCellExperiment`](http://bioconductor.org/packages/SingleCellExperiment) classes
+* Familiarity with the [_SummarizedExperiment_](http://bioconductor.org/packages/SummarizedExperiment) and [_SingleCellExperiment_](http://bioconductor.org/packages/SingleCellExperiment) classes
 * Familiarity with the [_shiny_](https://CRAN.R-project.org/package=shiny) CRAN package
 * Familiarity with the [_scRNAseq_](http://bioconductor.org/packages/scRNAseq/) package and [vignette](https://bioconductor.org/packages/release/data/experiment/vignettes/scRNAseq/inst/doc/scRNAseq.html)
 
