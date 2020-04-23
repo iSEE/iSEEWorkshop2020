@@ -4,7 +4,7 @@ Description: This workshop covers basic usage of iSEE for
     interactive visualization of SummarizedExperiment objects.
 Version: 0.0.1
 Depends:
-    R (>= 3.6.0),
+    R (>= 4.0.0),
     SummarizedExperiment,
     SingleCellExperiment,
     iSEE
@@ -12,7 +12,8 @@ Imports:
     TENxPBMCData,
     scater,
     scran,
-    BiocSingular
+    BiocSingular,
+    iSEEu
 Suggests:
     knitr,
     htmltools,
