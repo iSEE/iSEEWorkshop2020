@@ -325,8 +325,6 @@ The creation and configuration of custom panels is discussed later, in a [dedica
 But it's nice to show the capabilities of the panels too, not just the default settings.
 I added a few sentences to the introduction of this section to try to address this. --> 
 
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "iSEEinterface.png"))`-->
-
 <!-- ![](img/iSEEinterface.png) -->
 
 #### Reduced dimension plot {#reddimplot}
@@ -346,8 +344,6 @@ app <- iSEE(sce, initial = list(ReducedDimensionPlot(
 SCREENSHOT("screenshots/isee-reduceddimensionplot.png", delay=10)
 ```
 
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "redDimPlot.png"))`-->
-
 <!-- ![](img/redDimPlot.png) -->
 
 #### Column data plot {#coldataplot}
@@ -366,8 +362,6 @@ app <- iSEE(sce, initial = list(ColumnDataPlot(
 SCREENSHOT("screenshots/isee-columndataplot.png", delay=10)
 ```
 
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "colDataPlot.png"))`-->
-
 <!-- ![](img/colDataPlot.png) -->
 
 #### Row data plot {#rowdataplot}
@@ -385,8 +379,6 @@ app <- iSEE(sce, initial = list(RowDataPlot(
 SCREENSHOT("screenshots/isee-rowdataplot.png", delay=10)
 ```
 
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "rowDataPlot.png"))`-->
-
 <!-- ![](img/rowDataPlot.png) -->
 
 #### Complex heatmap {#heatmap}
@@ -403,8 +395,6 @@ app <- iSEE(sce, initial = list(ComplexHeatmapPlot(
 ```{r, echo=FALSE}
 SCREENSHOT("screenshots/isee-complexheatmapplot.png", delay=10)
 ```
-
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "heatMap.png"))`-->
 
 <!-- ![](img/heatMap.png) -->
 
@@ -425,8 +415,6 @@ app <- iSEE(sce, initial = list(FeatureAssayPlot(
 SCREENSHOT("screenshots/isee-featureassayplot.png", delay=10)
 ```
 
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "featAssayPlot.png"))`-->
-
 <!-- ![](img/featAssayPlot.png) -->
 
 #### Sample assay plot {#sampassayplot}
@@ -445,8 +433,6 @@ app <- iSEE(sce, initial = list(SampleAssayPlot(
 SCREENSHOT("screenshots/isee-sampleassayplot.png", delay=10)
 ```
 
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "sampAssayPlot.png"))`-->
-
 <!-- ![](img/sampAssayPlot.png) -->
 
 #### Row data table {#rowdatatable}
@@ -460,8 +446,6 @@ app <- iSEE(sce, initial = list(RowDataTable(PanelWidth = 12L)))
 SCREENSHOT("screenshots/isee-rowdatatable.png", delay=10)
 ```
 
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "rowStatTable.png"))`-->
-
 <!-- ![](img/rowStatTable.png) -->
 
 #### Column data table {#coldatatable}
@@ -474,8 +458,6 @@ app <- iSEE(sce, initial = list(ColumnDataTable(PanelWidth = 12L)))
 ```{r, echo=FALSE}
 SCREENSHOT("screenshots/isee-columndatatable.png", delay=10)
 ```
-
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "colStatTable.png"))`-->
 
 <!-- ![](img/colStatTable.png) -->
 
@@ -494,8 +476,6 @@ app <- iSEE(sce, initial = list(ColumnDataPlot(
 ```{r, echo=FALSE}
 SCREENSHOT("screenshots/isee-columndataplot-dataparameters.png", delay=10)
 ```
-
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "colDataPlotDataParams.png"))`-->
 
 <!-- ![](img/colDataPlotDataParams.png) -->
 
@@ -517,8 +497,6 @@ app <- iSEE(sce, initial = list(ColumnDataPlot(
 SCREENSHOT("screenshots/isee-columndataplot-visualparameters.png", delay=10)
 ```
 
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "colDataPlotVisualParams.png"))`-->
-
 <!-- ![](img/colDataPlotVisualParams.png) -->
 
 #### 'Selection parameters' collapsible box {#selection-parameter-box}
@@ -538,8 +516,6 @@ app <- iSEE(sce, initial = list(ReducedDimensionPlot(
 SCREENSHOT("screenshots/isee-reduceddimensionplot-selectionparameters.png", delay=10)
 ```
 
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "redDimPlotSelectionParams.png"))`-->
-
 <!-- ![](img/redDimPlotSelectionParams.png) -->
 
 #### Additional controls {#additional-controls}
@@ -556,12 +532,6 @@ Links are provided in the last column of the table below.
 | Documentation      | <img width="175" src="img/Documentation.png"/>     | [Quick tour](#sharing-tours), [Open the vignette](#more-resources) |
 | Additional info    | <img width="175" src="img/AdditionalInfo.png"/>    | [About this session](#reproducibility), [About iSEE](#more-resources) | -->
 
-<!-- |                    |                                                                     |                                        | -->
-<!-- |--------------------|:-------------------------------------------------------------------:|----------------------------------------| -->
-<!-- | Organization | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "PanelOrganization.png"), dpi = 180)` | [Organize panels](#configuration-ui), [Examine panel chart](#transmit-point-selections) | -->
-<!-- | Export        | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "Export.png"), dpi = 180)`       | [Download panel output](#download-output), [Extract R code](#reproducibility), [Display panel settings](#configuration-ui) | -->
-<!-- | Documentation      | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "Documentation.png"), dpi = 180)`     | [Quick tour](#sharing-tours), [Open the vignette](#more-resources) | -->
-<!-- | Additional info    | `r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "AdditionalInfo.png"), dpi = 180)`    | [About this session](#reproducibility), [About iSEE](#more-resources) | -->
 
 |                    |                                                                     |                                        |
 |--------------------|:-------------------------------------------------------------------:|----------------------------------------|
@@ -659,8 +629,6 @@ shiny::runApp(app)
 SCREENSHOT("screenshots/isee-reduceddimensiontype.png", delay=10)
 ```
 
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "ReducedDimensionType.png"))`-->
-
 <!-- ![](img/ReducedDimensionType.png) -->
 
 #### Coloring points by row/column annotation {#color-by-annotation}
@@ -699,8 +667,6 @@ shiny::runApp(app)
 ```{r, echo=FALSE}
 SCREENSHOT("screenshots/isee-colorbycoldata.png", delay=10)
 ```
-
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "ColorByColData.png"))`-->
 
 <!-- ![](img/ColorByColData.png) -->
 
@@ -745,8 +711,6 @@ shiny::runApp(app)
 SCREENSHOT("screenshots/isee-colorbyfeature.png", delay=10)
 ```
 
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "ColorByFeature.png"))`-->
-
 <!-- ![](img/ColorByFeature.png) -->
 
 <!--> <i class="fa fa-wrench fa-2x"></i> **Action:** click on the export icon (<i class="fa fa-download fa-1g"></i>) in the top-right corner, and select 'Display panel settings'.
@@ -785,8 +749,6 @@ shiny::runApp(app)
 ```{r, echo=FALSE}
 SCREENSHOT("screenshots/isee-colorbysample.png", delay=10)
 ```
-
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "ColorBySample.png"))`-->
 
 <!-- ![](img/ColorBySample.png) -->
 
@@ -832,8 +794,6 @@ shiny::runApp(app)
 SCREENSHOT("screenshots/isee-configurevisualparameters.png", delay=10)
 ```
 
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "ConfigureVisualParameters.png"))`-->
-
 <!-- ![](img/ConfigureVisualParameters.png) -->
 
 #### Changing the displayed metadata {#change-metadata-displayed}
@@ -876,8 +836,6 @@ shiny::runApp(app)
 ```{r, echo=FALSE}
 SCREENSHOT("screenshots/isee-configuredataplotpanels.png", delay=10)
 ```
-
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "ConfigureDataPlotPanels.png"))`-->
 
 <!-- ![](img/ConfigureDataPlotPanels.png) -->
 
@@ -926,8 +884,6 @@ shiny::runApp(app)
 ```{r, echo=FALSE}
 SCREENSHOT("screenshots/isee-featassayplotdataparams.png", delay=10)
 ```
-
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "featAssayPlotDataParams.png"))`-->
 
 <!-- ![](img/featAssayPlotDataParams.png) -->
 
@@ -980,12 +936,8 @@ shiny::runApp(app)
 SCREENSHOT("screenshots/isee-linkingpanelsexample.png", delay=10)
 ```
 
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "LinkingPanelsExample.png"))`-->
-
 Notably, iSEE can display active links transmitting point selections between panel using the "[Examine panel chart](#additional-controls)" menu.
 Visible panels that do not send or receive a selection are also shown.
-
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "GraphSelectionLinks.png"))`-->
 
 <!-- ![](img/GraphSelectionLinks.png) -->
 
@@ -1026,8 +978,6 @@ shiny::runApp(app)
 SCREENSHOT("screenshots/isee-zoom.png", delay=10)
 ```
 
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "Zoom.png"))`-->
-
 <!-- ![](img/Zoom.png) -->
 
 #### Filtering tables {#filter-table}
@@ -1059,8 +1009,6 @@ shiny::runApp(app)
 SCREENSHOT("screenshots/isee-filteredtable.png", delay=10)
 ```
 
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "FilteredTable.png"))`-->
-
 <!-- ![](img/FilteredTable.png) -->
 
 Notably the preselected cell can be used to immediately establish a relationship with another panel and highlighted the selection in a different panel [as demonstrated earlier](#transmit-point-selections).
@@ -1086,8 +1034,6 @@ shiny::runApp(app)
 ```{r, echo=FALSE}
 SCREENSHOT("screenshots/isee-linktabletoplot.png", delay=10)
 ```
-
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "LinkTableToPlot.png"))`-->
 
 <!-- ![](img/LinkTableToPlot.png) -->
 
@@ -1214,8 +1160,6 @@ shiny::runApp(app)
 SCREENSHOT("screenshots/isee-custompca.png", delay=20)
 ```
 
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "customPCA.png"))`-->
-
 <!-- ![](img/customPCA.png) -->
 
 <!-- Here we could mention the custom coverage plot, and link to bulk RNA-seq data -->
@@ -1323,8 +1267,6 @@ shiny::runApp(app)
 ```{r, echo=FALSE}
 SCREENSHOT("screenshots/isee-custommultipledifferentialexpression.png", delay=20)
 ```
-
-<!--`r knitr::include_graphics(file.path(system.file(package="iSEEWorkshop2020", "vignettes/img"), "customMultipleDifferentialExpression.png"))`-->
 
 <!-- ![](img/customMultipleDifferentialExpression.png) -->
 
