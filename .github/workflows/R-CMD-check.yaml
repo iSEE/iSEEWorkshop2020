@@ -28,7 +28,7 @@ jobs:
 
       - name: Query dependencies
         run: |
-          install.packages(c('remotes', 'BiocManager'))
+          install.packages('remotes')
           saveRDS(remotes::dev_package_deps(dependencies = TRUE, repos = c(getOption('repos'), BiocManager::repositories())), ".github/depends.Rds", version = 2)
         shell: Rscript {0}
 
@@ -45,7 +45,6 @@ jobs:
         run: |
           remotes::install_deps(dependencies = TRUE, repos = c(getOption('repos'), BiocManager::repositories()), Ncpu = 2L)
           remotes::install_cran("rcmdcheck")
-          remotes::install_cran("BiocManager")
           BiocManager::install("BiocCheck")
           
           ## Copy all the installed packages to a location where BiocCheck
@@ -60,8 +59,6 @@ jobs:
         shell: Rscript {0}
 
       - name: Check
-        env:
-          _R_CHECK_CRAN_INCOMING_REMOTE_: false
         run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "warning", check_dir = "check")
         shell: Rscript {0}
 
