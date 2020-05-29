@@ -6,6 +6,7 @@ output:
   rmarkdown::html_document:
     highlight: pygments
     toc: true
+    toc_float: true
     toc_depth: 3
     fig_width: 5
 bibliography: "`r file.path(system.file(package='iSEEWorkshop2020', 'vignettes/bib'), 'iSEE-lab.bib')`"
