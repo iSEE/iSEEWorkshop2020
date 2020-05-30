@@ -81,7 +81,7 @@ jobs:
           tag_with_sha: true
           tags: latest
 
-     - name: Build pkgdown
+      - name: Build pkgdown
         run: |
            PATH=$PATH:$HOME/bin/ Rscript -e 'pkgdown::build_site(".")'
            
