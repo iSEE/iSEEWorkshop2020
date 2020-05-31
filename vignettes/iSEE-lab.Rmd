@@ -313,7 +313,7 @@ In this workshop, we refer to the rows of the `SummarizedExperiment` object as '
 ### The user interface {#user-interface}
 
 The `r Biocpkg("iSEE")` user interface consists of a number of panels, each displaying the data provided in the `SummarizedExperiment` from a specific perspective.
-There are 8 standard panel types; 6 plot panels and 2 table panels, all showcased in the figure below.
+There are 8 standard panel types; 6 plot panels and 2 table panels, all showcased in the figure shown at the end of section [Preparation of example scRNAseq data](#prepare-scrnaseq-data).
 In the default configuration, one panel of each type is included when launching the `r Biocpkg("iSEE")` user interface.
 However, users are free to rearrange, resize, remove or add panels freely, as described in a [later section](#configuration-ui).
 We provide a brief overview of each panel type in the following subsections.
