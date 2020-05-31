@@ -368,7 +368,7 @@ SCREENSHOT("screenshots/isee-columndataplot.png", delay=10)
 #### Row data plot {#rowdataplot}
 
 Analogous to the [column data plot](#coldataplot) above, the row data plot displays one or two of the provided row annotations (from the `rowData` slot).
-Depending on the class of the selected annotations, the panel displays either a scatter plot, a violin plot, or a Hinton plot, , or .
+Depending on the class of the selected annotations, the panel displays either a scatter plot, a violin plot, or a Hinton plot.
 
 ```{r, message=FALSE, echo = FALSE}
 app <- iSEE(sce, initial = list(RowDataPlot(
