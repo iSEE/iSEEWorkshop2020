@@ -313,14 +313,14 @@ In this workshop, we refer to the rows of the `SummarizedExperiment` object as '
 ### The user interface {#user-interface}
 
 The `r Biocpkg("iSEE")` user interface consists of a number of panels, each displaying the data provided in the `SummarizedExperiment` from a specific perspective.
-There are 8 standard panel types; 6 plot panels and 2 table panels, all showcased in the figure below.
+There are 8 standard panel types; 6 plot panels and 2 table panels, all showcased in the figure shown at the end of section [Preparation of example scRNAseq data](#prepare-scrnaseq-data).
 In the default configuration, one panel of each type is included when launching the `r Biocpkg("iSEE")` user interface.
-However, users are free to rearrange, resize, remove or add panels freely, as described in a [later section](#configuration-ui).
+However, users are free to rearrange, resize, remove or add panels freely, as described in the later section [Configuration of the app interface](#configuration-ui).
 We provide a brief overview of each panel type in the following subsections.
 
 In addition to the 8 standard panel types included in `r Biocpkg("iSEE")`, users can create custom panels (both plots and tables).
 Moreover, the `r Biocpkg("iSEEu")` (iSEE universe) package contains additional panel types. 
-The creation and configuration of custom panels is discussed later, in a [dedicated section](#custom-panels) of this workshop.
+The creation and configuration of custom panels is discussed later, in the dedicated section [Custom panels](#custom-panels).
 
 <!-- This is perhaps not very pedagogical - the app will not look like the one below if it is just opened with the object created above.
 But it's nice to show the capabilities of the panels too, not just the default settings.
@@ -350,7 +350,7 @@ SCREENSHOT("screenshots/isee-reduceddimensionplot.png", delay=10)
 #### Column data plot {#coldataplot}
 
 The column data plot can display one or two of the provided column annotations (from the `colData` slot).
-Depending on the class of the selected annotations, the panel shows either a Hinton diagram [@Hinton1991-hintondiagram; @Bremner1994-hintonplots], a violin plot, or a scatter plot.
+Depending on the class of the selected annotations, the panel shows either a scatter plot, a violin plot, or a Hinton diagram [@Hinton1991-hintondiagram; @Bremner1994-hintonplots].
 
 ```{r, message=FALSE, echo = FALSE}
 app <- iSEE(sce, initial = list(ColumnDataPlot(
@@ -368,7 +368,7 @@ SCREENSHOT("screenshots/isee-columndataplot.png", delay=10)
 #### Row data plot {#rowdataplot}
 
 Analogous to the [column data plot](#coldataplot) above, the row data plot displays one or two of the provided row annotations (from the `rowData` slot).
-Depending on the class of the selected annotations, the panel displays either a Hinton plot, a violin plot, or a scatter plot.
+Depending on the class of the selected annotations, the panel displays either a scatter plot, a violin plot, or a Hinton plot.
 
 ```{r, message=FALSE, echo = FALSE}
 app <- iSEE(sce, initial = list(RowDataPlot(
@@ -465,7 +465,7 @@ SCREENSHOT("screenshots/isee-columndatatable.png", delay=10)
 #### 'Data parameters' collapsible box {#data-parameters-box}
 
 Each plot panel type has a `Data parameters` collapsible box.
-This box has different content for the each panel types, but in all cases it lets the user control the data that is displayed in the plot.
+This box has different content for each panel type, but in all cases it lets the user control the data that is displayed in the plot.
 
 ```{r, message=FALSE, echo = FALSE}
 app <- iSEE(sce, initial = list(ColumnDataPlot(
