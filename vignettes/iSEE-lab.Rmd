@@ -1375,8 +1375,8 @@ Then launch a new instance, providing the data frame to the `tour` argument.
 tour <- data.frame(
     element = c(
         "#Welcome",
-        "#redDimPlot1",
-        "#redDimPlot2",
+        "#ReducedDimensionPlot1",
+        "#ReducedDimensionPlot2",
         "#Conclusion"),
     intro = c(
         "Welcome to this tour!",
