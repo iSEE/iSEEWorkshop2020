@@ -98,7 +98,7 @@
 <a href="#instructors-names-and-contact-information" class="anchor"></a>Instructor(s) name(s) and contact information</h1>
 <ul>
 <li>Charlotte Soneson (<a href="mailto:charlotte.soneson@fmi.ch" class="email">charlotte.soneson@fmi.ch</a>)</li>
-<li>Kevin Rue-Albrecht (<a href="mailto:kevin.rue-albrecht@kennedy.ox.ac.uk" class="email">kevin.rue-albrecht@kennedy.ox.ac.uk</a>)</li>
+<li>Kevin Rue-Albrecht (<a href="mailto:kevin.rue-albrecht@ndcls.ox.ac.uk" class="email">kevin.rue-albrecht@ndcls.ox.ac.uk</a>)</li>
 <li>Federico Marini (<a href="mailto:marinif@uni-mainz.de" class="email">marinif@uni-mainz.de</a>)</li>
 <li>Aaron Lun (<a href="mailto:infinite.monkeys.with.keyboards@gmail.com" class="email">infinite.monkeys.with.keyboards@gmail.com</a>)</li>
 </ul>
@@ -106,13 +106,13 @@
 <div id="workshop-description" class="section level1">
 <h1 class="hasAnchor">
 <a href="#workshop-description" class="anchor"></a>Workshop Description</h1>
-<p>This workshop demonstrates the use of the <a href="http://bioconductor.org/packages/iSEE/"><em>iSEE</em></a> package to create and configure interactive applications for the exploration of various types of genomics data sets (e.g., bulk and single-cell RNA-seq, CyTOF, gene expression microarray).</p>
+<p>This workshop demonstrates the use of the <a href="https://bioconductor.org/packages/iSEE/"><em>iSEE</em></a> package to create and configure interactive applications for the exploration of various types of genomics data sets (e.g., bulk and single-cell RNA-seq, CyTOF, gene expression microarray).</p>
 <p>This workshop will be presented as a lab session that combines an instructor-led live demo, followed by hands-on experimentation guided by completely worked examples and stand-alone notes that participants may continue to use after the workshop.</p>
 <p>The instructor-led live demo comprises three parts:</p>
 <ol>
 <li>Brief lecture on the package concept and functionality</li>
 <li>Overview of the graphical user interface</li>
-<li>Instructions to preconfigure <a href="http://bioconductor.org/packages/iSEE/"><em>iSEE</em></a> apps</li>
+<li>Instructions to preconfigure <a href="https://bioconductor.org/packages/iSEE/"><em>iSEE</em></a> apps</li>
 </ol>
 <p>The hands-on lab comprises three parts:</p>
 <ol>
@@ -126,9 +126,9 @@
 <a href="#pre-requisites" class="anchor"></a>Pre-requisites</h2>
 <ul>
 <li>Basic knowledge of <a href="https://www.r-project.org/about.html"><em>R</em></a> syntax and the use of data-frames</li>
-<li>Familiarity with the <a href="http://bioconductor.org/packages/SummarizedExperiment"><em>SummarizedExperiment</em></a> and <a href="http://bioconductor.org/packages/SingleCellExperiment"><em>SingleCellExperiment</em></a> classes</li>
+<li>Familiarity with the <a href="https://bioconductor.org/packages/SummarizedExperiment"><em>SummarizedExperiment</em></a> and <a href="https://bioconductor.org/packages/SingleCellExperiment"><em>SingleCellExperiment</em></a> classes</li>
 <li>Familiarity with the <a href="https://CRAN.R-project.org/package=shiny"><em>shiny</em></a> CRAN package</li>
-<li>Familiarity with the <a href="http://bioconductor.org/packages/scRNAseq/"><em>scRNAseq</em></a> package and <a href="https://bioconductor.org/packages/release/data/experiment/vignettes/scRNAseq/inst/doc/scRNAseq.html">vignette</a>
+<li>Familiarity with the <a href="https://bioconductor.org/packages/TENxPBMCData/"><em>TENxPBMCData</em></a> package and <a href="https://bioconductor.org/packages/release/data/experiment/vignettes/TENxPBMCData/inst/doc/TENxPBMCData.html">vignette</a>
 </li>
 </ul>
 <p>Additional background reading about the programming environment, relevant packages, and example use cases:</p>
@@ -144,15 +144,14 @@
 <a href="https://osca.bioconductor.org" class="uri">https://osca.bioconductor.org</a>, as an online companion to the manuscript above</li>
 </ul>
 </li>
-<li>
-<a href="https://github.com/iSEE/iSEEu" class="uri">https://github.com/iSEE/iSEEu</a> for extending the functionality of <a href="http://bioconductor.org/packages/iSEE/"><em>iSEE</em></a>
+<li>The <a href="https://bioconductor.org/packages/iSEEu"><em>iSEEu</em></a> package for extending the functionality of <a href="https://bioconductor.org/packages/iSEE/"><em>iSEE</em></a>
 </li>
 </ul>
 </div>
 <div id="workshop-participation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#workshop-participation" class="anchor"></a>Workshop Participation</h2>
-<p>Students will participate by following along an <a href="https://rmarkdown.rstudio.com/"><em>R markdown</em></a> document, and asking questions throughout the workshop. There is also scope for participants to apply <a href="http://bioconductor.org/packages/iSEE/"><em>iSEE</em></a> to their own data sets, and fuel the discussion with more questions about specific use cases.</p>
+<p>Students will participate by following along an <a href="https://rmarkdown.rstudio.com/"><em>R markdown</em></a> document, and asking questions throughout the workshop. There is also scope for participants to apply <a href="https://bioconductor.org/packages/iSEE/"><em>iSEE</em></a> to their own data sets, and fuel the discussion with more questions about specific use cases.</p>
 </div>
 <div id="r-bioconductor-packages-used" class="section level2">
 <h2 class="hasAnchor">
@@ -172,6 +171,12 @@
 </li>
 <li>
 <em>scran</em>: <a href="https://bioconductor.org/packages/scran" class="uri">https://bioconductor.org/packages/scran</a>
+</li>
+<li>
+<em>TENxPBMCData</em>: <a href="https://bioconductor.org/packages/TENxPBMCData" class="uri">https://bioconductor.org/packages/TENxPBMCData</a>
+</li>
+<li>
+<em>BiocSingular</em>: <a href="https://bioconductor.org/packages/BiocSingular" class="uri">https://bioconductor.org/packages/BiocSingular</a>
 </li>
 </ol>
 </div>
@@ -225,8 +230,8 @@
 <h2 class="hasAnchor">
 <a href="#learning-goals" class="anchor"></a>Learning goals</h2>
 <ul>
-<li>Recognize the benefits of integrative data containers such as <a href="http://bioconductor.org/packages/SummarizedExperiment"><code>SummarizedExperiment</code></a> and <a href="http://bioconductor.org/packages/SingleCellExperiment"><code>SingleCellExperiment</code></a> for downstream analyses and visualization</li>
-<li>Outline the unique features of <a href="http://bioconductor.org/packages/iSEE/"><em>iSEE</em></a> built upon the <a href="https://shiny.rstudio.com">RStudio Shiny</a> framework</li>
+<li>Recognize the benefits of integrative data containers such as <a href="https://bioconductor.org/packages/SummarizedExperiment"><code>SummarizedExperiment</code></a> and <a href="https://bioconductor.org/packages/SingleCellExperiment"><code>SingleCellExperiment</code></a> for downstream analyses and visualization</li>
+<li>Outline the unique features of <a href="https://bioconductor.org/packages/iSEE/"><em>iSEE</em></a> built upon the <a href="https://shiny.rstudio.com">RStudio Shiny</a> framework</li>
 <li>Identify biological data that may be combined into insightful graphical outputs</li>
 <li>Utilize interactive GUI components and layouts to efficiently extract information from biological data sets</li>
 <li>Describe how to construct interactive apps and custom panels</li>
@@ -236,7 +241,7 @@
 <h2 class="hasAnchor">
 <a href="#learning-objectives" class="anchor"></a>Learning objectives</h2>
 <ul>
-<li>Memorize the key information available in <a href="http://bioconductor.org/packages/SummarizedExperiment"><code>SummarizedExperiment</code></a> and <a href="http://bioconductor.org/packages/SingleCellExperiment"><code>SingleCellExperiment</code></a> objects</li>
+<li>Memorize the key information available in <a href="https://bioconductor.org/packages/SummarizedExperiment"><code>SummarizedExperiment</code></a> and <a href="https://bioconductor.org/packages/SingleCellExperiment"><code>SingleCellExperiment</code></a> objects</li>
 <li>Set up a local environment for running <a href="https://bioconductor.org/packages/iSEE"><em>iSEE</em></a> apps</li>
 <li>Interact with components of the <a href="https://bioconductor.org/packages/iSEE"><em>iSEE</em></a> user interface to visually inspect and discuss various data sets</li>
 <li>Identify and locate configurable aspects of <a href="https://bioconductor.org/packages/iSEE"><em>iSEE</em></a> apps</li>
@@ -279,8 +284,7 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.com/iSEE/iSEEWorkshop2020"><img src="https://travis-ci.com/iSEE/iSEEWorkshop2020.svg?branch=master" alt="Travis build status"></a></li>
-<li><a href="https://github.com/iSEE/iSEEWorkshop2020/actions"><img src="https://github.com/iSEE/iSEEWorkshop2020/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://github.com/iSEE/iSEEWorkshop2020/actions"><img src="https://github.com/iSEE/iSEEWorkshop2020/workflows/basic_checks/badge.svg" alt="R build status"></a></li>
 </ul>
 </div>
 </div>
