@@ -720,7 +720,7 @@ SCREENSHOT("screenshots/isee-colorbyfeature.png", delay=10)
 
 <!-- ![](img/ColorByFeature.png) -->
 
-<!--> <i class="fa fa-wrench fa-2x"></i> **Action:** click on the export icon (<i class="fa fa-download fa-1g"></i>) in the top-right corner, and select 'Display panel settings'.
+<!-- > <i class="fa fa-wrench fa-2x"></i> **Action:** click on the export icon (<i class="fa fa-download fa-1g"></i>) in the top-right corner, and select 'Display panel settings'.
 This opens a pop-up window with the code required to generate all the currently visible panels. -->
 
 ### Highlighting a single point {#highlight}
@@ -944,7 +944,6 @@ SCREENSHOT("screenshots/isee-linkingpanelsexample.png", delay=10)
 ```
 
 Notably, iSEE can display active links transmitting point selections between panel using the "[Examine panel chart](#additional-controls)" menu.
-Visible panels that do not send or receive a selection are also shown.
 
 <!-- ![](img/GraphSelectionLinks.png) -->
 
