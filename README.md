@@ -60,6 +60,7 @@ There is also scope for participants to apply  [_iSEE_](https://bioconductor.org
 4. _scater_: https://bioconductor.org/packages/scater
 5. _scran_: https://bioconductor.org/packages/scran
 6. _TENxPBMCData_: https://bioconductor.org/packages/TENxPBMCData
+7. _BiocSingular_: https://bioconductor.org/packages/BiocSingular
 
 ## Time outline
 
