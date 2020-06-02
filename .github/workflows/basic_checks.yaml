@@ -37,14 +37,12 @@ jobs:
         shell: Rscript {0}
 
       - name: Check
-        if: runner.os == 'Windows'
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
         run: rcmdcheck::rcmdcheck(args = c("--no-manual"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
         
       - uses: docker/build-push-action@v1
-        if: runner.os == 'Windows'
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
