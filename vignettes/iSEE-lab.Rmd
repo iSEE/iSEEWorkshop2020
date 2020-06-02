@@ -173,7 +173,7 @@ In particular, this summary view indicates that the following pieces of informat
 - Row (i.e., gene) names are Ensembl gene IDs
 - Row metadata include for each gene the official gene symbol, and the gene symbol used by the
 10x CellRanger quantification pipeline
-- Column names (i.e., cells) are not initialized and left to `NULL`
+- Column (i.e., cell) IDs are not initialized and left to `NULL`
 - Column metadata include diverse information for each cell, including the cell barcode (`Barcode`) and the donor identifier (`Individual`).
 
 Note that a `SingleCellExperiment` object (or, more generally, any `SummarizedExperiment` object) like this one already contains sufficient information to launch an interactive application instance to visualize the available data and metadata, using the `iSEE()` function.
@@ -532,13 +532,20 @@ Links are provided in the last column of the table below.
 | Documentation      | <img width="175" src="img/Documentation.png"/>     | [Quick tour](#sharing-tours), [Open the vignette](#more-resources) |
 | Additional info    | <img width="175" src="img/AdditionalInfo.png"/>    | [About this session](#reproducibility), [About iSEE](#more-resources) | -->
 
+```{r, echo = FALSE}
+panel_organization_fig <- "controls/PanelOrganization.png"
+export_fig <- "controls/Export.png"
+documentation_fig <- "controls/Documentation.png"
+additional_info_fig <- "controls/AdditionalInfo.png"
+```
+
 
 |                    |                                                                     |                                        |
 |--------------------|:-------------------------------------------------------------------:|----------------------------------------|
-| Organization | `r knitr::include_graphics("controls/PanelOrganization.png", dpi = 180)` | [Organize panels](#configuration-ui), [Examine panel chart](#transmit-point-selections) |
-| Export        | `r knitr::include_graphics("controls/Export.png", dpi = 180)`       | [Download panel output](#download-output), [Extract R code](#reproducibility), [Display panel settings](#configuration-ui) |
-| Documentation      | `r knitr::include_graphics("controls/Documentation.png", dpi = 180)`     | [Quick tour](#sharing-tours), [Open the vignette](#more-resources) |
-| Additional info    | `r knitr::include_graphics("controls/AdditionalInfo.png", dpi = 180)`    | [About this session](#reproducibility), [About iSEE](#more-resources) |
+| Organization | `r knitr::include_graphics(panel_organization_fig, dpi = 180)` | [Organize panels](#configuration-ui), [Examine panel chart](#transmit-point-selections) |
+| Export        | `r knitr::include_graphics(export_fig, dpi = 180)`       | [Download panel output](#download-output), [Extract R code](#reproducibility), [Display panel settings](#configuration-ui) |
+| Documentation      | `r knitr::include_graphics(documentation_fig, dpi = 180)`     | [Quick tour](#sharing-tours), [Open the vignette](#more-resources) |
+| Additional info    | `r knitr::include_graphics(additional_info_fig, dpi = 180)`    | [About this session](#reproducibility), [About iSEE](#more-resources) |
 
 
 <!-- Show how to change what is plotted, faceting, changing appearance/color -->
