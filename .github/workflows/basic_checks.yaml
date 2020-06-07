@@ -1,4 +1,7 @@
 on: [push]
+
+name: build_check_deploy
+
 jobs:
   build_check_deploy:
     runs-on: ubuntu-latest
