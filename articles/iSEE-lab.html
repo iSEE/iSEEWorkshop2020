@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">iSEEWorkshop2020</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@
       <h1 data-toc-skip>Interactive visualization of SummarizedExperiment objects with iSEE</h1>
                         <h4 class="author">Kevin Rue-Albrecht, Charlotte Soneson, Federico Marini, and Aaron Lun</h4>
             
-            <h4 class="date">June 03, 2020</h4>
+            <h4 class="date">June 21, 2020</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/iSEE/iSEEWorkshop2020/blob/master/vignettes/iSEE-lab.Rmd"><code>vignettes/iSEE-lab.Rmd</code></a></small>
       <div class="hidden name"><code>iSEE-lab.Rmd</code></div>
@@ -276,10 +276,10 @@ td > img {
 </ul>
 <p>Note that a <code>SingleCellExperiment</code> object (or, more generally, any <code>SummarizedExperiment</code> object) like this one already contains sufficient information to launch an interactive application instance to visualize the available data and metadata, using the <code><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html">iSEE()</a></code> function.</p>
 <p>For the purpose of this workshop, we first apply some preprocessing to the <code>SingleCellExperiment</code> object, in order to populate it with more information that can be visualized with <code>iSEE</code>.</p>
-<p>We start by adding column names to the object, and use gene symbols instead of Ensembl IDs as row names. In the case where multiple Ensembl identifiers correspond to the same gene symbol, the <code><a href="https://rdrr.io/pkg/scater/man/uniquifyFeatureNames.html">scater::uniquifyFeatureNames</a></code> function concatenates the Ensembl ID and the gene symbol in order to generate unique feature names.</p>
+<p>We start by adding column names to the object, and use gene symbols instead of Ensembl IDs as row names. In the case where multiple Ensembl identifiers correspond to the same gene symbol, the <code><a href="https://rdrr.io/pkg/scater/man/reexports.html">scater::uniquifyFeatureNames</a></code> function concatenates the Ensembl ID and the gene symbol in order to generate unique feature names.</p>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">scater</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">sce</span>) <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Cell"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(<span class="no">sce</span>)))
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">sce</span>) <span class="kw">&lt;-</span> <span class="kw pkg">scater</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/uniquifyFeatureNames.html">uniquifyFeatureNames</a></span>(
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">sce</span>) <span class="kw">&lt;-</span> <span class="kw pkg">scater</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/reexports.html">uniquifyFeatureNames</a></span>(
     <span class="kw">ID</span> <span class="kw">=</span> <span class="fu">rowData</span>(<span class="no">sce</span>)$<span class="no">ENSEMBL_ID</span>,
     <span class="kw">names</span> <span class="kw">=</span> <span class="fu">rowData</span>(<span class="no">sce</span>)$<span class="no">Symbol_TENx</span>
 )
@@ -288,8 +288,8 @@ td > img {
 <span class="co">#&gt; [6] "AL627309.1"</span></pre></body></html></div>
 <p>Next, we use the <em><a href="https://bioconductor.org/packages/3.12/scater">scater</a></em> package to calculate gene- and cell-level quality metrics. These metrics are added as columns to the <code>rowData</code> and <code>colData</code> slots of the <code>SingleCellExperiment</code> object, respectively. We also add some additional metrics that are not automatically computed by the <em><a href="https://bioconductor.org/packages/3.12/scater">scater</a></em> package.</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">MT</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">sce</span>)[<span class="fu"><a href="https://rdrr.io/r/base/grep.html">grep</a></span>(<span class="st">"^MT-"</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">sce</span>))]
-<span class="no">sce</span> <span class="kw">&lt;-</span> <span class="kw pkg">scater</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/addPerCellQC.html">addPerCellQC</a></span>(<span class="no">sce</span>, <span class="kw">subsets</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">MT</span> <span class="kw">=</span> <span class="no">MT</span>))
-<span class="no">sce</span> <span class="kw">&lt;-</span> <span class="kw pkg">scater</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/addPerCellQC.html">addPerFeatureQC</a></span>(<span class="no">sce</span>)
+<span class="no">sce</span> <span class="kw">&lt;-</span> <span class="kw pkg">scater</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/reexports.html">addPerCellQC</a></span>(<span class="no">sce</span>, <span class="kw">subsets</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">MT</span> <span class="kw">=</span> <span class="no">MT</span>))
+<span class="no">sce</span> <span class="kw">&lt;-</span> <span class="kw pkg">scater</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/reexports.html">addPerFeatureQC</a></span>(<span class="no">sce</span>)
 <span class="no">sce</span>$<span class="no">log10_total</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span>(<span class="no">sce</span>$<span class="no">total</span>)
 <span class="fu">rowData</span>(<span class="no">sce</span>)$<span class="no">n_cells</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(<span class="fu">rowData</span>(<span class="no">sce</span>)$<span class="no">detected</span> * <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(<span class="no">sce</span>))
 <span class="fu">rowData</span>(<span class="no">sce</span>)$<span class="no">log10_total</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span>(<span class="fu">assay</span>(<span class="no">sce</span>, <span class="st">"counts"</span>)) + <span class="fl">1</span>)
@@ -301,7 +301,7 @@ td > img {
 <span class="co">#&gt; rownames(32738): MIR1302-10 FAM138A ... AC002321.2 AC002321.1</span>
 <span class="co">#&gt; rowData names(7): ENSEMBL_ID Symbol_TENx ... n_cells log10_total</span>
 <span class="co">#&gt; colnames(2700): Cell1 Cell2 ... Cell2699 Cell2700</span>
-<span class="co">#&gt; colData names(22): Sample Barcode ... total log10_total</span>
+<span class="co">#&gt; colData names(18): Sample Barcode ... total log10_total</span>
 <span class="co">#&gt; reducedDimNames(0):</span>
 <span class="co">#&gt; altExpNames(0):</span></pre></body></html></div>
 <p>We filter out a few cells with a large fraction of the counts coming from mitochondrial genes, since these may be damaged cells. Notice the reduced number of columns in the dataset below.</p>
@@ -313,7 +313,7 @@ td > img {
 <span class="co">#&gt; rownames(32738): MIR1302-10 FAM138A ... AC002321.2 AC002321.1</span>
 <span class="co">#&gt; rowData names(7): ENSEMBL_ID Symbol_TENx ... n_cells log10_total</span>
 <span class="co">#&gt; colnames(2643): Cell1 Cell2 ... Cell2699 Cell2700</span>
-<span class="co">#&gt; colData names(22): Sample Barcode ... total log10_total</span>
+<span class="co">#&gt; colData names(18): Sample Barcode ... total log10_total</span>
 <span class="co">#&gt; reducedDimNames(0):</span>
 <span class="co">#&gt; altExpNames(0):</span></pre></body></html></div>
 <p>Next, we calculate size factors and normalized and log-transformed expression values, using the <em><a href="https://bioconductor.org/packages/3.12/scran">scran</a></em> and <em><a href="https://bioconductor.org/packages/3.12/scater">scater</a></em> packages. Note that it is typically recommended to pre-cluster the cells before computing the size factors, as follows:</p>
@@ -326,7 +326,7 @@ td > img {
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="fu">sizeFactors</span>(<span class="no">sce</span>))
 <span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
 <span class="co">#&gt;  0.1164  0.7309  0.9004  1.0000  1.1635  9.8580</span>
-<span class="no">sce</span> <span class="kw">&lt;-</span> <span class="kw pkg">scater</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/logNormCounts.html">logNormCounts</a></span>(<span class="no">sce</span>)</pre></body></html></div>
+<span class="no">sce</span> <span class="kw">&lt;-</span> <span class="kw pkg">scater</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/reexports.html">logNormCounts</a></span>(<span class="no">sce</span>)</pre></body></html></div>
 <p>In order to extract the most informative genes, we first model the mean-variance trend and decompose the variance into biological and technical components.</p>
 <div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">dec</span> <span class="kw">&lt;-</span> <span class="kw pkg">scran</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/scran/man/modelGeneVar.html">modelGeneVar</a></span>(<span class="no">sce</span>)
 <span class="no">top.dec</span> <span class="kw">&lt;-</span> <span class="no">dec</span>[<span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="no">dec</span>$<span class="no">bio</span>, <span class="kw">decreasing</span> <span class="kw">=</span> <span class="fl">TRUE</span>), ]
@@ -347,7 +347,8 @@ td > img {
 <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(<span class="fu">reducedDim</span>(<span class="no">sce</span>, <span class="st">"PCA"</span>))
 <span class="co">#&gt; [1] 5</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">1000</span>)
-<span class="no">sce</span> <span class="kw">&lt;-</span> <span class="kw pkg">scater</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/runTSNE.html">runTSNE</a></span>(<span class="no">sce</span>, <span class="kw">use_dimred</span> <span class="kw">=</span> <span class="st">"PCA"</span>, <span class="kw">perplexity</span> <span class="kw">=</span> <span class="fl">30</span>)
+<span class="no">sce</span> <span class="kw">&lt;-</span> <span class="kw pkg">scater</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/runTSNE.html">runTSNE</a></span>(<span class="no">sce</span>, <span class="kw">dimred</span> <span class="kw">=</span> <span class="st">"PCA"</span>, <span class="kw">perplexity</span> <span class="kw">=</span> <span class="fl">30</span>)
+<span class="no">sce</span> <span class="kw">&lt;-</span> <span class="kw pkg">scater</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/runUMAP.html">runUMAP</a></span>(<span class="no">sce</span>, <span class="kw">dimred</span> <span class="kw">=</span> <span class="st">"PCA"</span>)
 <span class="no">sce</span>
 <span class="co">#&gt; class: SingleCellExperiment </span>
 <span class="co">#&gt; dim: 32738 2643 </span>
@@ -356,8 +357,8 @@ td > img {
 <span class="co">#&gt; rownames(32738): MIR1302-10 FAM138A ... AC002321.2 AC002321.1</span>
 <span class="co">#&gt; rowData names(7): ENSEMBL_ID Symbol_TENx ... n_cells log10_total</span>
 <span class="co">#&gt; colnames(2643): Cell1 Cell2 ... Cell2699 Cell2700</span>
-<span class="co">#&gt; colData names(23): Sample Barcode ... log10_total sizeFactor</span>
-<span class="co">#&gt; reducedDimNames(2): PCA TSNE</span>
+<span class="co">#&gt; colData names(19): Sample Barcode ... log10_total sizeFactor</span>
+<span class="co">#&gt; reducedDimNames(3): PCA TSNE UMAP</span>
 <span class="co">#&gt; altExpNames(0):</span></pre></body></html></div>
 <p>Finally, we cluster the cells using a graph-based algorithm, and find ‘marker genes’ for each cluster as the genes that are significantly upregulated in the cluster compared to each of the other inferred clusters. The adjusted p-values from this test, for each cluster, are added to the <code>rowData</code> slot of the object.</p>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">snn.gr</span> <span class="kw">&lt;-</span> <span class="kw pkg">scran</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/scran/man/buildSNNGraph.html">buildSNNGraph</a></span>(<span class="no">sce</span>, <span class="kw">use.dimred</span> <span class="kw">=</span> <span class="st">"PCA"</span>)
@@ -385,8 +386,8 @@ td > img {
 <span class="co">#&gt; rowData names(21): ENSEMBL_ID Symbol_TENx ... FDR_cluster13</span>
 <span class="co">#&gt;   FDR_cluster14</span>
 <span class="co">#&gt; colnames(2643): Cell1 Cell2 ... Cell2699 Cell2700</span>
-<span class="co">#&gt; colData names(24): Sample Barcode ... sizeFactor Cluster</span>
-<span class="co">#&gt; reducedDimNames(2): PCA TSNE</span>
+<span class="co">#&gt; colData names(20): Sample Barcode ... sizeFactor Cluster</span>
+<span class="co">#&gt; reducedDimNames(3): PCA TSNE UMAP</span>
 <span class="co">#&gt; altExpNames(0):</span></pre></body></html></div>
 <p>This concludes the preparation of the data. We have now a <code>SingleCellExperiment</code> object that contains different types of abundance values, representations in reduced dimensions, as well as a range of row (feature) and column (cell) metadata.</p>
 <p>We can launch an <em><a href="https://bioconductor.org/packages/3.12/iSEE">iSEE</a></em> instance for exploring this data set using the <code><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html">iSEE()</a></code> function:</p>
@@ -404,7 +405,7 @@ td > img {
 <p>Note that for simplicity, we typically refer to a <code>SummarizedExperiment</code> in this workshop; however, <em><a href="https://bioconductor.org/packages/3.12/iSEE">iSEE</a></em> works seamlessly for objects of any class extending <code>SummarizedExperiment</code> as well (e.g., <code>SingleCellExperiment</code>, <code>DESeqDataSet</code>). That said, some types of panels – such as the <code>Reduced dimension plot</code> – are only available for objects that contain a <code>reducedDim</code> slot (in particular, <code>SingleCellExperiment</code> objects); the basic <code>SummarizedExperiment</code> class does not contain this slot. In this workshop, we refer to the rows of the <code>SummarizedExperiment</code> object as ‘features’ (these can be genes, transcripts, genomic regions, etc) and to the columns as ‘samples’ (which, in our example data set, are single cells).</p>
 <div id="user-interface" class="section level2">
 <h2 class="hasAnchor">
-<a href="#user-interface" class="anchor"></a>The user interface</h2>
+<a href="#user-interface" class="anchor"></a>The built-in panel types</h2>
 <p>The <em><a href="https://bioconductor.org/packages/3.12/iSEE">iSEE</a></em> user interface consists of a number of panels, each displaying the data provided in the <code>SummarizedExperiment</code> from a specific perspective. There are 8 standard panel types; 6 plot panels and 2 table panels, all showcased in the figure shown at the end of section <a href="#prepare-scrnaseq-data">Preparation of example scRNAseq data</a>. In the default configuration, one panel of each type is included when launching the <em><a href="https://bioconductor.org/packages/3.12/iSEE">iSEE</a></em> user interface. However, users are free to rearrange, resize, remove or add panels freely, as described in the later section <a href="#configuration-ui">Configuration of the app interface</a>. We provide a brief overview of each panel type in the following subsections.</p>
 <p>In addition to the 8 standard panel types included in <em><a href="https://bioconductor.org/packages/3.12/iSEE">iSEE</a></em>, users can create custom panels (both plots and tables). Moreover, the <em><a href="https://bioconductor.org/packages/3.12/iSEEu">iSEEu</a></em> (iSEE universe) package contains additional panel types. The creation and configuration of custom panels is discussed later, in the dedicated section <a href="#custom-panels">Custom panels</a>.</p>
 <!-- This is perhaps not very pedagogical - the app will not look like the one below if it is just opened with the object created above.
@@ -468,6 +469,10 @@ I added a few sentences to the introduction of this section to try to address th
 <p><img src="screenshots/isee-columndatatable.png" width="992"></p>
 <!-- ![](img/colStatTable.png) -->
 </div>
+</div>
+<div id="collapsible-boxes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#collapsible-boxes" class="anchor"></a>Collapsible boxes with display controls</h2>
 <div id="data-parameters-box" class="section level3">
 <h3 class="hasAnchor">
 <a href="#data-parameters-box" class="anchor"></a>‘Data parameters’ collapsible box</h3>
@@ -491,9 +496,10 @@ I added a few sentences to the introduction of this section to try to address th
 <p><img src="screenshots/isee-reduceddimensionplot-selectionparameters.png" width="992"></p>
 <!-- ![](img/redDimPlotSelectionParams.png) -->
 </div>
-<div id="additional-controls" class="section level3">
-<h3 class="hasAnchor">
-<a href="#additional-controls" class="anchor"></a>Additional controls</h3>
+</div>
+<div id="additional-controls" class="section level2">
+<h2 class="hasAnchor">
+<a href="#additional-controls" class="anchor"></a>Additional controls</h2>
 <p>At the top-right corner of the iSEE application, users can find additional controls for reproducibility, configuration, and help. Each of these is discussed in more detail later in this workshop. Links are provided in the last column of the table below.</p>
 <!-- |                    |                                                                     |                                        |
 |--------------------|:-------------------------------------------------------------------:|----------------------------------------|
@@ -506,33 +512,32 @@ I added a few sentences to the introduction of this section to try to address th
 <td>Organization</td>
 <td align="center"><img src="controls/PanelOrganization.png" width="433"></td>
 <td>
-<a href="#configuration-ui">Organize panels</a>, <a href="#transmit-point-selections">Examine panel chart</a>
+<a href="#configuration-ui">Organize panels</a> <br><a href="#transmit-point-selections">Examine panel chart</a>
 </td>
 </tr>
 <tr class="even">
 <td>Export</td>
 <td align="center"><img src="controls/Export.png" width="386"></td>
 <td>
-<a href="#download-output">Download panel output</a>, <a href="#reproducibility">Extract R code</a>, <a href="#configuration-ui">Display panel settings</a>
+<a href="#download-output">Download panel output</a> <br><a href="#reproducibility">Extract R code</a> <br><a href="#configuration-ui">Display panel settings</a>
 </td>
 </tr>
 <tr class="odd">
 <td>Documentation</td>
 <td align="center"><img src="controls/Documentation.png" width="337"></td>
 <td>
-<a href="#sharing-tours">Quick tour</a>, <a href="#more-resources">Open the vignette</a>
+<a href="#sharing-tours">Quick tour</a> <br><a href="#more-resources">Open the vignette</a>
 </td>
 </tr>
 <tr class="even">
 <td>Additional info</td>
 <td align="center"><img src="controls/AdditionalInfo.png" width="298"></td>
 <td>
-<a href="#reproducibility">About this session</a>, <a href="#more-resources">About iSEE</a>
+<a href="#reproducibility">About this session</a> <br><a href="#more-resources">About iSEE</a>
 </td>
 </tr>
 </tbody></table>
 <!-- Show how to change what is plotted, faceting, changing appearance/color --><!-- Transmit selections --><!-- Subsampling -->
-</div>
 </div>
 <div id="configuration-ui" class="section level2">
 <h2 class="hasAnchor">
@@ -832,7 +837,7 @@ This opens a pop-up window with the code required to generate all the currently 
 <h3 class="hasAnchor">
 <a href="#filter-table" class="anchor"></a>Filtering tables</h3>
 <p>Tables may also be preconfigured to immediately display a subset of rows according to their filters or select a row different from the first one when the app is launched.</p>
-<p>For simplicity, we demonstrate this feature using a subset of 3 column metadata–namely “Cluster”, “total”, and “subsets_MT_percent”–out of the set of 24 column metadata computed by the <a href="#prepare-scrnaseq-data">workflow above</a>.</p>
+<p>For simplicity, we demonstrate this feature using a subset of 3 column metadata–namely “Cluster”, “total”, and “subsets_MT_percent”–out of the set of 20 column metadata computed by the <a href="#prepare-scrnaseq-data">workflow above</a>.</p>
 <p>In the example below, we preconfigure a <em>Column statistics table</em> to display only cells with cluster labels “3” and “5”, and a library size between 5,000 and 15,844 (the maximum library size in the dataset). In addition, we also preselect the cell named “Cell943”.</p>
 <blockquote>
 <p><i class="fa fa-wrench fa-2x"></i> <strong>Action:</strong> Close the app and run the following block of code to launch the example application described above.</p>
@@ -1162,76 +1167,79 @@ This opens a pop-up window with the code required to generate all the currently 
 <span class="co">#&gt; [8] methods   base     </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; other attached packages:</span>
-<span class="co">#&gt;  [1] iSEEu_1.1.1                 iSEE_2.1.4                 </span>
-<span class="co">#&gt;  [3] BiocSingular_1.5.0          scran_1.17.0               </span>
-<span class="co">#&gt;  [5] scater_1.17.0               ggplot2_3.3.1              </span>
-<span class="co">#&gt;  [7] TENxPBMCData_1.7.0          HDF5Array_1.17.0           </span>
-<span class="co">#&gt;  [9] rhdf5_2.33.0                SingleCellExperiment_1.11.2</span>
-<span class="co">#&gt; [11] SummarizedExperiment_1.19.4 DelayedArray_0.15.1        </span>
-<span class="co">#&gt; [13] matrixStats_0.56.0          Biobase_2.49.0             </span>
-<span class="co">#&gt; [15] GenomicRanges_1.41.1        GenomeInfoDb_1.25.0        </span>
-<span class="co">#&gt; [17] IRanges_2.23.6              S4Vectors_0.27.9           </span>
-<span class="co">#&gt; [19] BiocGenerics_0.35.2         BiocStyle_2.17.0           </span>
+<span class="co">#&gt;  [1] iSEEu_1.1.1                 iSEE_2.1.7                 </span>
+<span class="co">#&gt;  [3] BiocSingular_1.5.0          scran_1.17.2               </span>
+<span class="co">#&gt;  [5] scater_1.17.2               ggplot2_3.3.1              </span>
+<span class="co">#&gt;  [7] TENxPBMCData_1.7.0          HDF5Array_1.17.2           </span>
+<span class="co">#&gt;  [9] rhdf5_2.33.3                SingleCellExperiment_1.11.4</span>
+<span class="co">#&gt; [11] SummarizedExperiment_1.19.5 DelayedArray_0.15.5        </span>
+<span class="co">#&gt; [13] matrixStats_0.56.0          Matrix_1.2-18              </span>
+<span class="co">#&gt; [15] Biobase_2.49.0              GenomicRanges_1.41.5       </span>
+<span class="co">#&gt; [17] GenomeInfoDb_1.25.2         IRanges_2.23.10            </span>
+<span class="co">#&gt; [19] S4Vectors_0.27.12           BiocGenerics_0.35.4        </span>
+<span class="co">#&gt; [21] BiocStyle_2.17.0           </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; loaded via a namespace (and not attached):</span>
-<span class="co">#&gt;   [1] Rtsne_0.15                    ggbeeswarm_0.6.0             </span>
-<span class="co">#&gt;   [3] colorspace_1.4-1              rjson_0.2.20                 </span>
-<span class="co">#&gt;   [5] ellipsis_0.3.1                rprojroot_1.3-2              </span>
-<span class="co">#&gt;   [7] circlize_0.4.9                XVector_0.29.1               </span>
-<span class="co">#&gt;   [9] GlobalOptions_0.1.1           BiocNeighbors_1.7.0          </span>
-<span class="co">#&gt;  [11] fs_1.4.1                      clue_0.3-57                  </span>
-<span class="co">#&gt;  [13] farver_2.0.3                  DT_0.13                      </span>
-<span class="co">#&gt;  [15] bit64_0.9-7                   interactiveDisplayBase_1.27.5</span>
-<span class="co">#&gt;  [17] AnnotationDbi_1.51.0          splines_4.0.0                </span>
-<span class="co">#&gt;  [19] knitr_1.28                    jsonlite_1.6.1               </span>
-<span class="co">#&gt;  [21] cluster_2.1.0                 dbplyr_1.4.4                 </span>
-<span class="co">#&gt;  [23] png_0.1-7                     shinydashboard_0.7.1         </span>
-<span class="co">#&gt;  [25] shiny_1.4.0.2                 BiocManager_1.30.10          </span>
-<span class="co">#&gt;  [27] compiler_4.0.0                httr_1.4.1                   </span>
-<span class="co">#&gt;  [29] dqrng_0.2.1                   backports_1.1.7              </span>
-<span class="co">#&gt;  [31] assertthat_0.2.1              Matrix_1.2-18                </span>
-<span class="co">#&gt;  [33] fastmap_1.0.1                 limma_3.45.0                 </span>
-<span class="co">#&gt;  [35] later_1.0.0                   htmltools_0.4.0              </span>
-<span class="co">#&gt;  [37] tools_4.0.0                   rsvd_1.0.3                   </span>
-<span class="co">#&gt;  [39] igraph_1.2.5                  gtable_0.3.0                 </span>
-<span class="co">#&gt;  [41] glue_1.4.1                    GenomeInfoDbData_1.2.3       </span>
-<span class="co">#&gt;  [43] dplyr_1.0.0                   rappdirs_0.3.1               </span>
-<span class="co">#&gt;  [45] Rcpp_1.0.4.6                  pkgdown_1.5.1                </span>
-<span class="co">#&gt;  [47] vctrs_0.3.0                   nlme_3.1-147                 </span>
-<span class="co">#&gt;  [49] ExperimentHub_1.15.0          rintrojs_0.2.2               </span>
-<span class="co">#&gt;  [51] DelayedMatrixStats_1.11.0     xfun_0.14                    </span>
-<span class="co">#&gt;  [53] stringr_1.4.0                 beachmat_2.5.0               </span>
-<span class="co">#&gt;  [55] miniUI_0.1.1.1                mime_0.9                     </span>
-<span class="co">#&gt;  [57] lifecycle_0.2.0               irlba_2.3.3                  </span>
-<span class="co">#&gt;  [59] statmod_1.4.34                shinyAce_0.4.1               </span>
-<span class="co">#&gt;  [61] AnnotationHub_2.21.0          edgeR_3.31.1                 </span>
-<span class="co">#&gt;  [63] zlibbioc_1.35.0               MASS_7.3-51.5                </span>
-<span class="co">#&gt;  [65] scales_1.1.1                  colourpicker_1.0             </span>
-<span class="co">#&gt;  [67] promises_1.1.0                RColorBrewer_1.1-2           </span>
-<span class="co">#&gt;  [69] ComplexHeatmap_2.5.3          yaml_2.2.1                   </span>
-<span class="co">#&gt;  [71] curl_4.3                      memoise_1.1.0                </span>
-<span class="co">#&gt;  [73] gridExtra_2.3                 stringi_1.4.6                </span>
-<span class="co">#&gt;  [75] RSQLite_2.2.0                 BiocVersion_3.12.0           </span>
-<span class="co">#&gt;  [77] desc_1.2.0                    BiocParallel_1.23.0          </span>
-<span class="co">#&gt;  [79] shape_1.4.4                   rlang_0.4.6                  </span>
-<span class="co">#&gt;  [81] pkgconfig_2.0.3               bitops_1.0-6                 </span>
-<span class="co">#&gt;  [83] evaluate_0.14                 lattice_0.20-41              </span>
-<span class="co">#&gt;  [85] purrr_0.3.4                   Rhdf5lib_1.11.0              </span>
-<span class="co">#&gt;  [87] labeling_0.3                  htmlwidgets_1.5.1            </span>
-<span class="co">#&gt;  [89] bit_1.1-15.2                  tidyselect_1.1.0             </span>
-<span class="co">#&gt;  [91] magrittr_1.5                  R6_2.4.1                     </span>
-<span class="co">#&gt;  [93] generics_0.0.2                DBI_1.1.0                    </span>
-<span class="co">#&gt;  [95] mgcv_1.8-31                   pillar_1.4.4                 </span>
-<span class="co">#&gt;  [97] withr_2.2.0                   RCurl_1.98-1.2               </span>
-<span class="co">#&gt;  [99] tibble_3.0.1                  crayon_1.3.4                 </span>
-<span class="co">#&gt; [101] shinyWidgets_0.5.3            BiocFileCache_1.13.0         </span>
-<span class="co">#&gt; [103] rmarkdown_2.2                 viridis_0.5.1                </span>
-<span class="co">#&gt; [105] GetoptLong_0.1.8              locfit_1.5-9.4               </span>
-<span class="co">#&gt; [107] grid_4.0.0                    blob_1.2.1                   </span>
-<span class="co">#&gt; [109] digest_0.6.25                 xtable_1.8-4                 </span>
-<span class="co">#&gt; [111] httpuv_1.5.3.1                munsell_0.5.0                </span>
-<span class="co">#&gt; [113] beeswarm_0.2.3                viridisLite_0.3.0            </span>
-<span class="co">#&gt; [115] vipor_0.4.5                   shinyjs_1.1</span></pre></body></html></div>
+<span class="co">#&gt;   [1] backports_1.1.8               circlize_0.4.10              </span>
+<span class="co">#&gt;   [3] AnnotationHub_2.21.1          BiocFileCache_1.13.0         </span>
+<span class="co">#&gt;   [5] igraph_1.2.5                  shinydashboard_0.7.1         </span>
+<span class="co">#&gt;   [7] splines_4.0.0                 BiocParallel_1.23.0          </span>
+<span class="co">#&gt;   [9] digest_0.6.25                 htmltools_0.5.0              </span>
+<span class="co">#&gt;  [11] viridis_0.5.1                 magrittr_1.5                 </span>
+<span class="co">#&gt;  [13] memoise_1.1.0                 cluster_2.1.0                </span>
+<span class="co">#&gt;  [15] limma_3.45.7                  ComplexHeatmap_2.5.3         </span>
+<span class="co">#&gt;  [17] pkgdown_1.5.1                 colorspace_1.4-1             </span>
+<span class="co">#&gt;  [19] blob_1.2.1                    rappdirs_0.3.1               </span>
+<span class="co">#&gt;  [21] xfun_0.14                     dplyr_1.0.0                  </span>
+<span class="co">#&gt;  [23] crayon_1.3.4                  RCurl_1.98-1.2               </span>
+<span class="co">#&gt;  [25] jsonlite_1.6.1                glue_1.4.1                   </span>
+<span class="co">#&gt;  [27] gtable_0.3.0                  zlibbioc_1.35.0              </span>
+<span class="co">#&gt;  [29] XVector_0.29.2                GetoptLong_1.0.0             </span>
+<span class="co">#&gt;  [31] Rhdf5lib_1.11.2               shape_1.4.4                  </span>
+<span class="co">#&gt;  [33] scales_1.1.1                  DBI_1.1.0                    </span>
+<span class="co">#&gt;  [35] edgeR_3.31.4                  miniUI_0.1.1.1               </span>
+<span class="co">#&gt;  [37] Rcpp_1.0.4.6                  viridisLite_0.3.0            </span>
+<span class="co">#&gt;  [39] xtable_1.8-4                  clue_0.3-57                  </span>
+<span class="co">#&gt;  [41] dqrng_0.2.1                   bit_1.1-15.2                 </span>
+<span class="co">#&gt;  [43] rsvd_1.0.3                    DT_0.13                      </span>
+<span class="co">#&gt;  [45] htmlwidgets_1.5.1             httr_1.4.1                   </span>
+<span class="co">#&gt;  [47] FNN_1.1.3                     RColorBrewer_1.1-2           </span>
+<span class="co">#&gt;  [49] shinyAce_0.4.1                ellipsis_0.3.1               </span>
+<span class="co">#&gt;  [51] farver_2.0.3                  pkgconfig_2.0.3              </span>
+<span class="co">#&gt;  [53] scuttle_0.99.9                uwot_0.1.8                   </span>
+<span class="co">#&gt;  [55] dbplyr_1.4.4                  locfit_1.5-9.4               </span>
+<span class="co">#&gt;  [57] tidyselect_1.1.0              labeling_0.3                 </span>
+<span class="co">#&gt;  [59] rlang_0.4.6                   later_1.1.0.1                </span>
+<span class="co">#&gt;  [61] AnnotationDbi_1.51.0          munsell_0.5.0                </span>
+<span class="co">#&gt;  [63] BiocVersion_3.12.0            tools_4.0.0                  </span>
+<span class="co">#&gt;  [65] generics_0.0.2                RSQLite_2.2.0                </span>
+<span class="co">#&gt;  [67] ExperimentHub_1.15.0          rintrojs_0.2.2               </span>
+<span class="co">#&gt;  [69] evaluate_0.14                 stringr_1.4.0                </span>
+<span class="co">#&gt;  [71] fastmap_1.0.1                 yaml_2.2.1                   </span>
+<span class="co">#&gt;  [73] knitr_1.28                    bit64_0.9-7                  </span>
+<span class="co">#&gt;  [75] fs_1.4.1                      purrr_0.3.4                  </span>
+<span class="co">#&gt;  [77] nlme_3.1-147                  mime_0.9                     </span>
+<span class="co">#&gt;  [79] compiler_4.0.0                beeswarm_0.2.3               </span>
+<span class="co">#&gt;  [81] curl_4.3                      png_0.1-7                    </span>
+<span class="co">#&gt;  [83] interactiveDisplayBase_1.27.5 tibble_3.0.1                 </span>
+<span class="co">#&gt;  [85] statmod_1.4.34                stringi_1.4.6                </span>
+<span class="co">#&gt;  [87] desc_1.2.0                    RSpectra_0.16-0              </span>
+<span class="co">#&gt;  [89] lattice_0.20-41               shinyjs_1.1                  </span>
+<span class="co">#&gt;  [91] vctrs_0.3.1                   pillar_1.4.4                 </span>
+<span class="co">#&gt;  [93] lifecycle_0.2.0               rhdf5filters_1.1.0           </span>
+<span class="co">#&gt;  [95] BiocManager_1.30.10           GlobalOptions_0.1.2          </span>
+<span class="co">#&gt;  [97] BiocNeighbors_1.7.0           bitops_1.0-6                 </span>
+<span class="co">#&gt;  [99] irlba_2.3.3                   httpuv_1.5.4                 </span>
+<span class="co">#&gt; [101] R6_2.4.1                      promises_1.1.1               </span>
+<span class="co">#&gt; [103] gridExtra_2.3                 vipor_0.4.5                  </span>
+<span class="co">#&gt; [105] colourpicker_1.0              MASS_7.3-51.5                </span>
+<span class="co">#&gt; [107] assertthat_0.2.1              rprojroot_1.3-2              </span>
+<span class="co">#&gt; [109] rjson_0.2.20                  shinyWidgets_0.5.3           </span>
+<span class="co">#&gt; [111] withr_2.2.0                   GenomeInfoDbData_1.2.3       </span>
+<span class="co">#&gt; [113] mgcv_1.8-31                   grid_4.0.0                   </span>
+<span class="co">#&gt; [115] beachmat_2.5.0                rmarkdown_2.2                </span>
+<span class="co">#&gt; [117] DelayedMatrixStats_1.11.0     Rtsne_0.15                   </span>
+<span class="co">#&gt; [119] shiny_1.4.0.2                 ggbeeswarm_0.6.0</span></pre></body></html></div>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
@@ -1244,7 +1252,7 @@ This opens a pop-up window with the code required to generate all the currently 
 <p>Hinton, Geoffrey E, and Tim Shallice. 1991. “Lesioning an Attractor Network: Investigations of Acquired Dyslexia.” <em>Psychological Review</em> 98 (1): 74–95.</p>
 </div>
 <div id="ref-Huber2015-orchestrating">
-<p>Huber, Wolfgang, Vincent J Carey, Robert Gentleman, Simon Anders, Marc Carlson, Benilton S Carvalho, Hector Corrada Bravo, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” <em>Nat. Methods</em> 12 (2). Nature Publishing Group: 115–21.</p>
+<p>Huber, Wolfgang, Vincent J Carey, Robert Gentleman, Simon Anders, Marc Carlson, Benilton S Carvalho, Hector Corrada Bravo, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” <em>Nat. Methods</em> 12 (2): 115–21.</p>
 </div>
 <div id="ref-Rue-Albrecht2018-isee">
 <p>Rue-Albrecht, Kevin, Federico Marini, Charlotte Soneson, and Aaron T L Lun. 2018. “iSEE: Interactive SummarizedExperiment Explorer.” <em>F1000Res.</em> 7 (June).</p>
@@ -1254,10 +1262,10 @@ This opens a pop-up window with the code required to generate all the currently 
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>University of Oxford, Oxford, UK<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>Friedrich Miescher Institute for Biomedical Research and SIB Swiss Institute of Bioinformatics<a href="#fnref2" class="footnote-back">↩</a></p></li>
-<li id="fn3"><p>Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI), Mainz and Center for Thrombosis and Hemostasis (CTH), Mainz<a href="#fnref3" class="footnote-back">↩</a></p></li>
-<li id="fn4"><p>Genentech, Bioinformatics and Computational Biology<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>University of Oxford, Oxford, UK<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Friedrich Miescher Institute for Biomedical Research and SIB Swiss Institute of Bioinformatics<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI), Mainz and Center for Thrombosis and Hemostasis (CTH), Mainz<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>Genentech, Bioinformatics and Computational Biology<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
