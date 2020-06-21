@@ -249,7 +249,8 @@ set.seed(1000)
 sce <- scran::denoisePCA(sce, technical = dec)
 ncol(reducedDim(sce, "PCA"))
 set.seed(1000)
-sce <- scater::runTSNE(sce, use_dimred = "PCA", perplexity = 30)
+sce <- scater::runTSNE(sce, dimred = "PCA", perplexity = 30)
+sce <- scater::runUMAP(sce, dimred = "PCA")
 sce
 ```
 
@@ -309,7 +310,7 @@ Note that for simplicity, we typically refer to a `SummarizedExperiment` in this
 That said, some types of panels -- such as the `Reduced dimension plot` -- are only available for objects that contain a `reducedDim` slot (in particular, `SingleCellExperiment` objects); the basic `SummarizedExperiment` class does not contain this slot.
 In this workshop, we refer to the rows of the `SummarizedExperiment` object as 'features' (these can be genes, transcripts, genomic regions, etc) and to the columns as 'samples' (which, in our example data set, are single cells).
 
-## The user interface {#user-interface}
+## The built-in panel types {#user-interface}
 
 The `r Biocpkg("iSEE")` user interface consists of a number of panels, each displaying the data provided in the `SummarizedExperiment` from a specific perspective.
 There are 8 standard panel types; 6 plot panels and 2 table panels, all showcased in the figure shown at the end of section [Preparation of example scRNAseq data](#prepare-scrnaseq-data).
@@ -461,6 +462,8 @@ SCREENSHOT("screenshots/isee-columndatatable.png", delay=10)
 
 <!-- ![](img/colStatTable.png) -->
 
+## Collapsible boxes with display controls {#collapsible-boxes}
+
 ### 'Data parameters' collapsible box {#data-parameters-box}
 
 Each plot panel type has a `Data parameters` collapsible box.
@@ -518,7 +521,7 @@ SCREENSHOT("screenshots/isee-reduceddimensionplot-selectionparameters.png", dela
 
 <!-- ![](img/redDimPlotSelectionParams.png) -->
 
-### Additional controls {#additional-controls}
+## Additional controls {#additional-controls}
 
 At the top-right corner of the iSEE application, users can find additional controls for reproducibility, configuration, and help.
 Each of these is discussed in more detail later in this workshop.
@@ -532,7 +535,7 @@ Links are provided in the last column of the table below.
 | Documentation      | <img width="175" src="img/Documentation.png"/>     | [Quick tour](#sharing-tours), [Open the vignette](#more-resources) |
 | Additional info    | <img width="175" src="img/AdditionalInfo.png"/>    | [About this session](#reproducibility), [About iSEE](#more-resources) | -->
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, eval = TRUE}
 panel_organization_fig <- "controls/PanelOrganization.png"
 export_fig <- "controls/Export.png"
 documentation_fig <- "controls/Documentation.png"
@@ -542,10 +545,10 @@ additional_info_fig <- "controls/AdditionalInfo.png"
 
 |                    |                                                                     |                                        |
 |--------------------|:-------------------------------------------------------------------:|----------------------------------------|
-| Organization | `r knitr::include_graphics(panel_organization_fig, dpi = 180)` | [Organize panels](#configuration-ui), [Examine panel chart](#transmit-point-selections) |
-| Export        | `r knitr::include_graphics(export_fig, dpi = 180)`       | [Download panel output](#download-output), [Extract R code](#reproducibility), [Display panel settings](#configuration-ui) |
-| Documentation      | `r knitr::include_graphics(documentation_fig, dpi = 180)`     | [Quick tour](#sharing-tours), [Open the vignette](#more-resources) |
-| Additional info    | `r knitr::include_graphics(additional_info_fig, dpi = 180)`    | [About this session](#reproducibility), [About iSEE](#more-resources) |
+| Organization | `r knitr::include_graphics(panel_organization_fig, dpi = 180)` | [Organize panels](#configuration-ui) <br> [Examine panel chart](#transmit-point-selections) |
+| Export        | `r knitr::include_graphics(export_fig, dpi = 180)`       | [Download panel output](#download-output) <br> [Extract R code](#reproducibility) <br> [Display panel settings](#configuration-ui) |
+| Documentation      | `r knitr::include_graphics(documentation_fig, dpi = 180)`     | [Quick tour](#sharing-tours) <br> [Open the vignette](#more-resources) |
+| Additional info    | `r knitr::include_graphics(additional_info_fig, dpi = 180)`    | [About this session](#reproducibility) <br> [About iSEE](#more-resources) |
 
 
 <!-- Show how to change what is plotted, faceting, changing appearance/color -->
