@@ -1,5 +1,5 @@
 <!-- badges: start -->
-[![R build status](https://github.com/iSEE/iSEEWorkshop2020/workflows/basic_checks/badge.svg)](https://github.com/iSEE/iSEEWorkshop2020/actions)
+[![R build status](https://github.com/iSEE/iSEEWorkshop2020/workflows/build_check_deploy/badge.svg)](https://github.com/iSEE/iSEEWorkshop2020/actions)
 <!-- badges: end -->
 
 # iSEE: Interactive visualization of `SummarizedExperiment` objects <img src="man/figures/logo.png" align="right" width="240" height="278">
