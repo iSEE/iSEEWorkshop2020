@@ -1,4 +1,4 @@
-FROM bioconductor/bioconductor_docker:devel
+FROM docker.pkg.github.com/isee/iseeu/iseeu:latest
 
 WORKDIR /home/rstudio
 
