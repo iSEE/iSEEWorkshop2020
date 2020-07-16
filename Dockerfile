@@ -1,4 +1,4 @@
-FROM iseedevelopers/iseeu:latest
+FROM bioconductor/bioconductor_docker:devel
 
 MAINTAINER kevinrue67@gmail.com
 LABEL authors="kevinrue67@gmail.com" \
