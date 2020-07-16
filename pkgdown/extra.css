@@ -8,11 +8,6 @@
   background-color: #0092ac;
 }
 
-p>.fa,
-p>.fas {
-  color: #0092ac;
-}
-
 .navbar-default .navbar-nav>.active>a,
 .navbar-default .navbar-nav>.active>a:hover,
 .navbar-default .navbar-nav>.active>a:focus {
@@ -59,5 +54,10 @@ h3 {
   color: #c4d931;
   background-color: #00758a;
   border-color: #00758a;
+}
+
+p>.fa,
+p>.fas {
+  color: #0092ac;
 }
 
