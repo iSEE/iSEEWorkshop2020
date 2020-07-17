@@ -94,3 +94,24 @@ There is also scope for participants to apply  [_iSEE_](https://bioconductor.org
 * Practice interactive visualization over a single-cell RNA-sequencing workflow
 * Design custom [_iSEE_](https://bioconductor.org/packages/iSEE) panels for advanced use cases
 * Imagine use cases and future developments for interactive visualization as part of computational workflows
+
+# Docker setup
+
+In the Docker settings menu:
+
+- Open 'Preferences...'
+- Navigate to 'Resources'
+- Use the slider to set 'Memory' to '4.00 GB'
+- Click 'Apply & Restart'
+
+# Workshop setup
+
+- Run `docker pull iseedevelopers/iseeworkshop2020`
+- Run `docker run -e PASSWORD=isee -p 8787:8787 -d --rm iseedevelopers/iseeworkshop2020`.
+  Use `-v $(pwd):/home/rstudio` argument to map your local directory to the container. 
+- Log in to RStudio at [http://localhost:8787](http://localhost:8787) using username `rstudio` and password `isee`.
+  Note that on Windows you need to provide your localhost IP address like `http://191.163.92.108:8787/` - find it using `docker-machine ip default` in Docker's terminal.
+- Run `browseVignettes(package = "iSEEWorkshop2020")`.
+  Click on one of the links, "HTML", "source", "R code".
+  - In case of `The requested page was not found` error, add `help/` to the URL right after the hostname, e.g., <http://localhost:8787/help/library/iSEEWorkshop2020/doc/iSEE-lab.html>.
+  This is a [known bug](https://github.com/rocker-org/rocker-versioned/issues/178).
