@@ -65,6 +65,9 @@
 <li>
       <a href="articles/iSEE-lab.html">Interactive visualization of SummarizedExperiment objects with iSEE</a>
     </li>
+    <li>
+      <a href="articles/setup.html">Workshop setup</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -251,6 +254,32 @@
 <li>Imagine use cases and future developments for interactive visualization as part of computational workflows</li>
 </ul>
 </div>
+</div>
+<div id="docker-setup" class="section level1">
+<h1 class="hasAnchor">
+<a href="#docker-setup" class="anchor"></a>Docker setup</h1>
+<p>In the Docker settings menu:</p>
+<ul>
+<li>Open ‘Preferences…’</li>
+<li>Navigate to ‘Resources’</li>
+<li>Use the slider to set ‘Memory’ to ‘4.00 GB’</li>
+<li>Click ‘Apply &amp; Restart’</li>
+</ul>
+</div>
+<div id="workshop-setup" class="section level1">
+<h1 class="hasAnchor">
+<a href="#workshop-setup" class="anchor"></a>Workshop setup</h1>
+<ul>
+<li>Run <code>docker pull iseedevelopers/iseeworkshop2020</code>
+</li>
+<li>Run <code>docker run -e PASSWORD=isee -p 8787:8787 -d --rm iseedevelopers/iseeworkshop2020</code>. Use <code>-v $(pwd):/home/rstudio</code> argument to map your local directory to the container.</li>
+<li>Log in to RStudio at <a href="http://localhost:8787">http://localhost:8787</a> using username <code>rstudio</code> and password <code>isee</code>. Note that on Windows you need to provide your localhost IP address like <code>http://191.163.92.108:8787/</code> - find it using <code>docker-machine ip default</code> in Docker’s terminal.</li>
+<li>Run <code><a href="https://rdrr.io/r/utils/browseVignettes.html">browseVignettes(package = "iSEEWorkshop2020")</a></code>. Click on one of the links, “HTML”, “source”, “R code”.
+<ul>
+<li>In case of <code>The requested page was not found</code> error, add <code>help/</code> to the URL right after the hostname, e.g., <a href="http://localhost:8787/help/library/iSEEWorkshop2020/doc/iSEE-lab.html" class="uri">http://localhost:8787/help/library/iSEEWorkshop2020/doc/iSEE-lab.html</a>. This is a <a href="https://github.com/rocker-org/rocker-versioned/issues/178">known bug</a>.</li>
+</ul>
+</li>
+</ul>
 </div>
 
   </div>
