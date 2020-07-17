@@ -1,4 +1,4 @@
-FROM iseedevelopers/iseeu:latest
+FROM bioconductor/bioconductor_docker:devel
 
 MAINTAINER kevinrue67@gmail.com
 LABEL authors="kevinrue67@gmail.com" \
@@ -10,4 +10,6 @@ COPY --chown=rstudio:rstudio . /home/rstudio/iseeworkshop2020
 
 ENV R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
 
-RUN Rscript -e "devtools::install('.', dependencies=TRUE, repos = BiocManager::repositories(), build_vignettes = TRUE)"
+RUN Rscript -e "options(repos = c(CRAN = 'https://cran.r-project.org')); BiocManager::install(ask=FALSE)"
+
+RUN Rscript -e "options(repos = c(CRAN = 'https://cran.r-project.org')); devtools::install('.', dependencies=TRUE, build_vignettes=TRUE, repos = BiocManager::repositories())"
