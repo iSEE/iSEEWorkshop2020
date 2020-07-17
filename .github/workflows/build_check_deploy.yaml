@@ -45,20 +45,20 @@ jobs:
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
 
-      - name: Publish to Registry
-        #if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        uses: elgohr/Publish-Docker-Github-Action@master
-        with:
-          name: docker.pkg.github.com/kevinrue/iseeworkshop2020/iseeworkshop2020:latest
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
-
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
         run: rcmdcheck::rcmdcheck(args = c("--no-manual"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
+
+      - name: Publish to Registry
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: docker.pkg.github.com/isee/iseeworkshop2020/iseeworkshop2020:latest
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
 
       - uses: docker/build-push-action@v1
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
@@ -71,18 +71,18 @@ jobs:
           tags: latest
 
       - name: Build pkgdown
-        #if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: |
            PATH=$PATH:$HOME/bin/ Rscript -e 'BiocManager::install("pkgdown"); pkgdown::build_site(".")'
 
       # deploy needs rsync? Seems so.
       - name: Install deploy dependencies
-        #if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: |
           apt-get update && apt-get -y install rsync
 
       - name: Deploy 🚀
-        #if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
