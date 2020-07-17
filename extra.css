@@ -1,0 +1,63 @@
+/*
+#0092ac   blue
+#c4d931   green (on blue)
+#87b13f   green (on white)
+*/
+
+.headroom {
+  background-color: #0092ac;
+}
+
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>.active>a:focus {
+    color: #c4d931;
+    background-color: #00758a;
+}
+
+.navbar-default .navbar-nav>.open>a,
+.navbar-default .navbar-nav>.open>a:hover,
+.navbar-default .navbar-nav>.open>a:focus {
+    color: #c4d931;
+    background-color: #00758a;
+}
+
+.navbar-default .navbar-nav>li>a:hover,
+.navbar-default .navbar-nav>li>a:focus {
+    color: #c4d931;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #ffffff;
+}
+
+h1 {
+  color: #87b13f;
+}
+
+h2 {
+  color: #87b13f;
+}
+
+h3 {
+  color: #1a81c2;
+  font-weight: bold;
+}
+
+.btn-copy-ex {
+  color: #ffffff;
+  background-color: #0092ac;
+  border-color: #0092ac;
+}
+
+.btn-copy-ex:hover {
+  color: #c4d931;
+  background-color: #00758a;
+  border-color: #00758a;
+}
+
+p>.fa,
+p>.fas {
+  color: #0092ac;
+}
+
