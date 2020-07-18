@@ -27,35 +27,35 @@ jobs:
           key: ${{ runner.os }}-r-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-r-1-
 
-      # This lets us augment with additional dependencies
-      # - name: Install system dependencies
-      #   if: runner.os == 'Linux'
-      #   env:
-      #     RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
-      #   run: |
-      #     Rscript -e "remotes::install_github('r-hub/sysreqs')"
-      #     sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
-      #     sudo -s eval "$sysreqs"
+      This lets us augment with additional dependencies
+      - name: Install system dependencies
+        if: runner.os == 'Linux'
+        env:
+          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
+        run: |
+          Rscript -e "remotes::install_github('r-hub/sysreqs')"
+          sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
+          sudo -s eval "$sysreqs"
 
-      # - name: Install dependencies
-      #   run: |
-      #     options(repos = c(CRAN = "https://cran.r-project.org"))
-      #     BiocManager::repositories()
-      #     remotes::install_deps(dependencies = TRUE, repos = BiocManager::repositories(), Ncpu = 2L)
-      #     remotes::install_cran("rcmdcheck")
-      #   shell: Rscript {0}
+      - name: Install dependencies
+        run: |
+          options(repos = c(CRAN = "https://cran.r-project.org"))
+          BiocManager::repositories()
+          remotes::install_deps(dependencies = TRUE, repos = BiocManager::repositories(), Ncpu = 2L)
+          remotes::install_cran("rcmdcheck")
+        shell: Rscript {0}
 
-      # - name: Check
-      #   env:
-      #     _R_CHECK_CRAN_INCOMING_REMOTE_: false
-      #   run: rcmdcheck::rcmdcheck(args = c("--no-manual"), error_on = "warning", check_dir = "check")
-      #   shell: Rscript {0}
+      - name: Check
+        env:
+          _R_CHECK_CRAN_INCOMING_REMOTE_: false
+        run: rcmdcheck::rcmdcheck(args = c("--no-manual"), error_on = "warning", check_dir = "check")
+        shell: Rscript {0}
 
       - name: Publish to Registry
         # if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: docker.pkg.github.com/kevinrue/iseeworkshop2020/iseeworkshop2020:latest
+          name: docker.pkg.github.com/isee/iseeworkshop2020/iseeworkshop2020:latest
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
