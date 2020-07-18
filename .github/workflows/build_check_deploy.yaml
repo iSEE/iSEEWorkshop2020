@@ -28,22 +28,22 @@ jobs:
           restore-keys: ${{ runner.os }}-r-1-
 
       # This lets us augment with additional dependencies
-      - name: Install system dependencies
-        if: runner.os == 'Linux'
-        env:
-          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
-        run: |
-          Rscript -e "remotes::install_github('r-hub/sysreqs')"
-          sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
-          sudo -s eval "$sysreqs"
+      # - name: Install system dependencies
+      #   if: runner.os == 'Linux'
+      #   env:
+      #     RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
+      #   run: |
+      #     Rscript -e "remotes::install_github('r-hub/sysreqs')"
+      #     sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
+      #     sudo -s eval "$sysreqs"
 
-      - name: Install dependencies
-        run: |
-          options(repos = c(CRAN = "https://cran.r-project.org"))
-          BiocManager::repositories()
-          remotes::install_deps(dependencies = TRUE, repos = BiocManager::repositories(), Ncpu = 2L)
-          remotes::install_cran("rcmdcheck")
-        shell: Rscript {0}
+      # - name: Install dependencies
+      #   run: |
+      #     options(repos = c(CRAN = "https://cran.r-project.org"))
+      #     BiocManager::repositories()
+      #     remotes::install_deps(dependencies = TRUE, repos = BiocManager::repositories(), Ncpu = 2L)
+      #     remotes::install_cran("rcmdcheck")
+      #   shell: Rscript {0}
 
       # - name: Check
       #   env:
