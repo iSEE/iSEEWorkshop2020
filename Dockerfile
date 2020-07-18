@@ -1,4 +1,4 @@
-FROM bioconductor/bioconductor_docker:devel
+FROM bioconductor/bioconductor_docker:bioc2020
 
 MAINTAINER kevinrue67@gmail.com
 LABEL authors="kevinrue67@gmail.com" \
