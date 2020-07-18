@@ -11,6 +11,11 @@
 - Federico Marini (marinif@uni-mainz.de)
 - Aaron Lun (infinite.monkeys.with.keyboards@gmail.com)
 
+# Key resources
+
+- Docker image: [Docker Hub](https://hub.docker.com/repository/docker/iseedevelopers/iseeworkshop2020)
+- Workshop: [pgkdown website](https://isee.github.io/iSEEWorkshop2020/)
+
 # Workshop Description
 
 This workshop demonstrates the use of the [_iSEE_](https://bioconductor.org/packages/iSEE/) package to create and configure interactive applications for the exploration of various types of genomics data sets (e.g., bulk and single-cell RNA-seq, CyTOF, gene expression microarray).
