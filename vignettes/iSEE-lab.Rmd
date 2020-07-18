@@ -1129,7 +1129,6 @@ Select subsets of the points in each of these two panels and note how the plot i
 
 ```{r}
 GENERATOR <- createCustomPlot(CUSTOM_DIMRED)
-custom_panel <- GENERATOR()
 
 initial=list(
   ReducedDimensionPlot(
