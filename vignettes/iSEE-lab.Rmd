@@ -1501,6 +1501,19 @@ shiny::runApp(app)
 SCREENSHOT("screenshots/isee-iseeu-modereduceddim.png", delay=10)
 ```
 
+Furthermore, since `r Biocpkg("iSEE")` version 2.0.0, users can leverage the implementation of panels as a hierarchy of S4 classes to rapidly extend the framework and develop new types of panels with virtually unlimited freedom of functionality.
+In this framework, new panel types can be readily integrated in apps alongside built-in panel types and immediately benefit of most panel functionality with minimal effort, including the capacity to transmit selections to and from other panels.
+New panels may be implemented by extending the core virtual class `Panel` directly for full control over the user interface and reactive observers;
+alternatively, it is often desirable for developers to inherit from one of the concrete panel classes to get most of the essential functionality from the parent class "for free".
+
+Use cases demonstrating the implementation of new panels with various levels of complexity are available in the [Extending iSEE](https://isee.github.io/iSEE-book/) bookdown.
+For example, the _Hexagonal reduced dimension plot_ - implemented in the `r Biocpkg("iSEEu")` package - demonstrates an alternative to the downsampling strategy, by summarizing data points into hexagonal bins.
+
+```{r, echo=FALSE}
+knitr::include_graphics('https://isee.github.io/iSEE-book/screenshots/hex-dimred.png')
+```
+
+New panels and modes may be defined in independent _R_ packages that declare `Imports: iSEE` in their DESCRIPTION file, and distributed online to create an "iSEE-verse" of interoperable packages for interactive visualization, akin to the `r CRANpkg('tidyverse')` collection of R packages for data science.
 If you have ideas about additional panels and/or modes that might be useful, we welcome issues and pull requests at https://github.com/iSEE/iSEEu.
 
 # Additional resources {#more-resources}
