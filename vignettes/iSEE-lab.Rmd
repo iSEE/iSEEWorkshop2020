@@ -1083,7 +1083,7 @@ In addition, we also preselect the cell named "Cell943".
 sce1 <- sce
 colData(sce1) <- colData(sce1)[, c("Cluster", "total", "subsets_MT_percent")]
 initial <- list(
-  ColumnDataTable(SearchColumns = c("[\"3\", \"5\"]", "5000 ... 15844", ""),
+  ColumnDataTable(SearchColumns = c('["3", "5"]", "5000 ... 15844"', ""),
                   Selected = "Cell943", PanelWidth = 12L)
 )
 
@@ -1106,7 +1106,7 @@ Select different rows of the cell to see the _Reduced dimension plot_ panel upda
 
 ```{r}
 initial <- list(
-  ColumnDataTable(SearchColumns = c("[\"3\", \"5\"]", "5000 ... 15844", ""),
+  ColumnDataTable(SearchColumns = c('["3", "5"]', "5000 ... 15844", ""),
                   Selected = "Cell943", PanelId = 1L, PanelWidth = 8L),
   ReducedDimensionPlot(Type = "TSNE", VisualBoxOpen = TRUE,
                        ColorBy = "Sample name", 
