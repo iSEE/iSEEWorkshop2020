@@ -968,7 +968,7 @@ Notably, iSEE can display active links transmitting point selections between pan
 
 ### Zooming into a plot subregion {#zoom-subregion}
 
-iSEE allows you to zoom into a subregion of a plot, by simply drawing a rectangle around the area of interest and double-clicking inside the rectangle.
+iSEE allows you to zoom into a subregion of a plot, by simply drawing a rectangular selection around the area of interest and double-clicking inside the rectangle.
 To zoom back out to the full plot, double-click anywhere in the plot.
 
 To demonstrate the feature, we set up two _Reduced dimension plot_ panels.
@@ -1004,6 +1004,56 @@ SCREENSHOT("screenshots/isee-zoom.png", delay=10)
 ```
 
 <!-- ![](img/Zoom.png) -->
+
+### Lasso selections {#lasso-selection}
+
+Sometimes, rectangular selections may not offer enough flexibility to include or exclude certain data points.
+While RStudio Shiny [does not offer freehand/lasso selections yet](https://github.com/rstudio/shiny/issues/2072), `r Biocpkg("iSEE")` implements this feature through a server-side click-based functionality to draw lasso selections in plot panels.
+
+To start a lasso selection, click once on the plot at the location where you wish to create the first lasso waypoint, and let the plot refresh to show the point.
+To draw subsequent waypoints, click once at the desired locations, each time allowing the plot to refresh.
+To close the lasso and activate the selection, click on the starting waypoint of the lasso (a tolerance of 1% of the axis range is applied).
+
+To demonstrate the feature, we define one open (i.e. incomplete) and one closed (i.e., active) lasso selection in two separate _Row data plot_ panels, to select features (i.e., genes) that show a higher total UMI count across all cells than the general trend for other features detected in the same number of cells.
+In addition, we specify that the the _Row data table_ should display the features captured by the closed lasso selection, along with their associated metadata.
+
+> <i class="fa fa-wrench fa-2x"></i> **Action:** Close the app and run the following block of code to launch the example application described above.
+Close the incomplete lasso selection in the first panel by clickig on the initial waypoint.
+
+```{r}
+initial <- list(
+  RowDataPlot(XAxis = "Row data", YAxis = "log10_total", XAxisRowData = "detected", 
+              BrushData = list(lasso = NULL, closed = FALSE, panelvar1 = NULL, panelvar2 = NULL,
+                               mapping = list(x = "X", y = "Y"),
+                               coord = structure(c(
+                                 -0.12, 11.03, 20.69, 39.08,
+                                 60.5, 85.53, 93.68, 95.79,
+                                 60.8, 34.26, -0.12,
+                                 2.29, 2.77, 3.03, 3.32,
+                                 3.54, 3.98, 4.24, 4.72,
+                                 4.69, 4.43, 3.41), .Dim = c(11L, 2L)))),
+  RowDataPlot(XAxis = "Row data", YAxis = "log10_total", XAxisRowData = "detected", 
+              BrushData = list(lasso = NULL, closed = TRUE, panelvar1 = NULL, panelvar2 = NULL,
+                               mapping = list(x = "X", y = "Y"),
+                               coord = structure(c(
+                                 -0.12, 11.03, 20.69, 39.08,
+                                 60.5, 85.53, 93.68, 95.79,
+                                 60.8, 34.26, -0.12, -0.12,
+                                 2.29, 2.77, 3.03, 3.32,
+                                 3.54, 3.98, 4.24, 4.72,
+                                 4.69, 4.43, 3.41, 2.29), .Dim = c(12L, 2L)))),
+  RowDataTable(RowSelectionSource = "RowDataPlot2")
+)
+
+app <- iSEE(sce, initial = initial)
+```
+
+```{r, eval = FALSE}
+shiny::runApp(app)
+```
+```{r, echo=FALSE}
+SCREENSHOT("screenshots/isee-lassoselection.png", delay=10)
+```
 
 ### Filtering tables {#filter-table}
 
