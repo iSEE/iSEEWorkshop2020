@@ -289,7 +289,7 @@ app <- iSEE(sce)
 shiny::runApp(app)
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-initial.png", delay=20)
 ```
 
@@ -309,7 +309,7 @@ app <- iSEE()
 ```{r, eval=FALSE}
 shiny::runApp(app)
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-no-se.png", delay=10)
 ```
 
@@ -357,7 +357,7 @@ app <- iSEE(sce, initial = list(ReducedDimensionPlot(
   ColorByColumnData = "Cluster"
 )))
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-reduceddimensionplot.png", delay=10)
 ```
 
@@ -375,7 +375,7 @@ app <- iSEE(sce, initial = list(ColumnDataPlot(
   YAxis = "log10_total"
 )))
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-columndataplot.png", delay=10)
 ```
 
@@ -392,7 +392,7 @@ app <- iSEE(sce, initial = list(RowDataPlot(
   YAxis = "detected", XAxisRowData = "log10_total"
 )))
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-rowdataplot.png", delay=10)
 ```
 
@@ -409,7 +409,7 @@ app <- iSEE(sce, initial = list(ComplexHeatmapPlot(
   ColumnData = "Cluster", AssayCenterRows = TRUE
 )))
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-complexheatmapplot.png", delay=10)
 ```
 
@@ -428,7 +428,7 @@ app <- iSEE(sce, initial = list(FeatureAssayPlot(
   ColorByColumnData = "Cluster"
 )))
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-featureassayplot.png", delay=10)
 ```
 
@@ -446,7 +446,7 @@ app <- iSEE(sce, initial = list(SampleAssayPlot(
   PointSize = 2
 )))
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-sampleassayplot.png", delay=10)
 ```
 
@@ -459,7 +459,7 @@ The row data table displays all information provided in the `rowData` slot of th
 ```{r, message=FALSE, echo = FALSE}
 app <- iSEE(sce, initial = list(RowDataTable(PanelWidth = 12L)))
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-rowdatatable.png", delay=10)
 ```
 
@@ -472,7 +472,7 @@ Analogous to the [row data table](#rowdatatable) above, the column data table di
 ```{r, message=FALSE, echo = FALSE}
 app <- iSEE(sce, initial = list(ColumnDataTable(PanelWidth = 12L)))
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-columndatatable.png", delay=10)
 ```
 
@@ -492,7 +492,7 @@ app <- iSEE(sce, initial = list(ColumnDataPlot(
   YAxis = "log10_total"
 )))
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-columndataplot-dataparameters.png", delay=10)
 ```
 
@@ -512,7 +512,7 @@ app <- iSEE(sce, initial = list(ColumnDataPlot(
   VisualChoices = c("Color", "Point", "Facet", "Shape", "Size", "Text")
 )))
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-columndataplot-visualparameters.png", delay=10)
 ```
 
@@ -531,7 +531,7 @@ app <- iSEE(sce, initial = list(ReducedDimensionPlot(
   ColorByColumnData = "Cluster"
 )))
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-reduceddimensionplot-selectionparameters.png", delay=10)
 ```
 
@@ -618,7 +618,7 @@ app <- iSEE(sce, initial = initial)
 shiny::runApp(app)
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-initial-2rows.png", delay=20)
 ```
 
@@ -651,7 +651,7 @@ app <- iSEE(sce, initial = initial)
 ```{r, eval = FALSE}
 shiny::runApp(app)
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-reduceddimensiontype.png", delay=10)
 ```
 
@@ -690,7 +690,7 @@ app <- iSEE(sce, initial = initial)
 ```{r, eval = FALSE}
 shiny::runApp(app)
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-colorbycoldata.png", delay=10)
 ```
 
@@ -733,7 +733,7 @@ app <- iSEE(sce, initial = initial)
 ```{r, eval = FALSE}
 shiny::runApp(app)
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-colorbyfeature.png", delay=10)
 ```
 
@@ -772,7 +772,7 @@ app <- iSEE(sce, initial = initial)
 ```{r, eval = FALSE}
 shiny::runApp(app)
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-colorbysample.png", delay=10)
 ```
 
@@ -829,7 +829,7 @@ app <- iSEE(sce, initial = initial)
 ```{r, eval = FALSE}
 shiny::runApp(app)
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-configurevisualparameters.png", delay=10)
 ```
 
@@ -872,7 +872,7 @@ app <- iSEE(sce, initial = initial)
 ```{r, eval = FALSE}
 shiny::runApp(app)
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-configuredataplotpanels.png", delay=10)
 ```
 
@@ -920,7 +920,7 @@ app <- iSEE(sce, initial = initial)
 ```{r, eval = FALSE}
 shiny::runApp(app)
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-featassayplotdataparams.png", delay=10)
 ```
 
@@ -971,7 +971,7 @@ app <- iSEE(sce, initial = initial)
 ```{r, eval = FALSE}
 shiny::runApp(app)
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-linkingpanelsexample.png", delay=10)
 ```
 
@@ -1012,7 +1012,7 @@ app <- iSEE(sce, initial = initial)
 ```{r, eval = FALSE}
 shiny::runApp(app)
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-zoom.png", delay=10)
 ```
 
@@ -1064,7 +1064,7 @@ app <- iSEE(sce, initial = initial)
 ```{r, eval = FALSE}
 shiny::runApp(app)
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-lassoselection.png", delay=10)
 ```
 
@@ -1093,7 +1093,7 @@ app <- iSEE(sce1, initial = initial)
 ```{r, eval = FALSE}
 shiny::runApp(app)
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-filteredtable.png", delay=10)
 ```
 
@@ -1119,7 +1119,7 @@ app <- iSEE(sce1, initial = initial)
 ```{r, eval = FALSE}
 shiny::runApp(app)
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-linktabletoplot.png", delay=10)
 ```
 
@@ -1243,7 +1243,7 @@ app <- iSEE(sce, initial = initial)
 ```{r, eval = FALSE}
 shiny::runApp(app)
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-custompca.png", delay=20)
 ```
 
@@ -1351,7 +1351,7 @@ app <- iSEE(sce, initial = initial)
 ```{r, eval = FALSE}
 shiny::runApp(app)
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-custommultipledifferentialexpression.png", delay=20)
 ```
 
@@ -1384,7 +1384,7 @@ app <- iSEE(sce, initial = initial)
 ```{r, eval = FALSE}
 shiny::runApp(app)
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-reproducibility.png", delay=10)
 ```
 
@@ -1475,7 +1475,7 @@ app <- iSEE(sce, initial = initial, tour = tour)
 ```{r, eval = FALSE}
 shiny::runApp(app)
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-tour.png", delay=10)
 ```
 
@@ -1497,7 +1497,7 @@ app <- modeReducedDim(sce)
 ```{r, eval = FALSE}
 shiny::runApp(app)
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 SCREENSHOT("screenshots/isee-iseeu-modereduceddim.png", delay=10)
 ```
 
@@ -1509,7 +1509,7 @@ alternatively, it is often desirable for developers to inherit from one of the c
 Use cases demonstrating the implementation of new panels with various levels of complexity are available in the [Extending iSEE](https://isee.github.io/iSEE-book/) bookdown.
 For example, the _Hexagonal reduced dimension plot_ - implemented in the `r Biocpkg("iSEEu")` package - demonstrates an alternative to the downsampling strategy, by summarizing data points into hexagonal bins.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 knitr::include_graphics('https://isee.github.io/iSEE-book/screenshots/hex-dimred.png')
 ```
 
