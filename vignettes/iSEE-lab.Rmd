@@ -783,7 +783,10 @@ SCREENSHOT("screenshots/isee-colorbysample.png", delay=10)
 By default, only the `Color` options are displayed in the `Visual parameters` box.
 Additional controls can be shown by clicking the check boxes for `Shape`, `Size`, `Point`, `Facet` and `Text`.
 The `Size`, `Shape` and `Point` panels let you set the shape and size of points according to provided annotations (or to resize all points), and to set the point opacity.
+
 Here, you can also downsample points to increase the speed of rendering, which can be useful for data sets with large numbers of points.
+Crucially, downsampling is purely a visual effect; data points hidden by the downsampling process are still included in selections captured by Shiny brushes and lasso selections.
+We illustrate this point by applying the same Shiny brush to select a visually well defined cluster visually downsampled to a resolution of 100 and 50 bins, respectively; note how the information message for both selection declares the same number of data points selected, despite the clearly different number of data points displayed in the corresponding area of each plot.
 
 > <i class="fa fa-wrench fa-2x"></i> **Action:** Close the app and run the following block of code to continue editing the configuration of the _Reduced dimension plot_ panels prepared in the [previous section](#color-by-feature).
 Here, we reduce the point size and increase the transparency (i.e. reduce the value for the alpha attribute).
@@ -791,23 +794,33 @@ We also apply a downsampling grid of 100 horizontal and vertical bins to the plo
 Finally, we display the `Shape` and `Point` options.
 
 ```{r}
+brushData <- list(xmin = -16.44, xmax = 5.6976316150235, ymin = -41.147401279341, ymax = -15.99494636763, 
+        coords_css = list(xmin = 231.34375, xmax = 383.34375, ymin = 306L, ymax = 417L), 
+        coords_img = list(xmin = 231.34375, xmax = 383.34375, ymin = 306L, ymax = 417L), 
+        img_css_ratio = list(x = 1L, y = 1L), mapping = list(x = "X", y = "Y", colour = "ColorBy"), 
+        domain = list(left = -44.5050628659896, right = 38.791275779239, bottom = -43.4753804355979, 
+            top = 47.8385432957266), range = list(left = 38.7190443065069, right = 610.520547945205, 
+            bottom = 427.273577161815, top = 24.2971850062453), log = list(x = NULL, 
+            y = NULL), direction = "xy", brushId = "ReducedDimensionPlot2_Brush", outputId = "ReducedDimensionPlot2")
 initial <- list(
   ReducedDimensionPlot(Type = "TSNE", ColorBy = "Column data", 
                        ColorByColumnData = "Cluster",
                        VisualBoxOpen = TRUE, Downsample = TRUE, 
-                       DownsampleResolution = 100),
+                       DownsampleResolution = 200),
   ReducedDimensionPlot(Type = "TSNE", ColorBy = "Sample name", 
                        ColorBySampleName = "Cell2439",
                        VisualBoxOpen = TRUE, PointSize = 0.4,
                        PointAlpha = 0.4, Downsample = TRUE, 
                        DownsampleResolution = 100,
-                       VisualChoices = c("Shape", "Point")),
+                       VisualChoices = c("Shape", "Point"),
+                       BrushData = brushData),
   ReducedDimensionPlot(Type = "TSNE", ColorBy = "Sample name", 
                        ColorBySampleName = "Cell673",
                        VisualBoxOpen = TRUE, PointSize = 0.4,
                        PointAlpha = 0.4, Downsample = TRUE, 
-                       DownsampleResolution = 100,
-                       VisualChoices = c("Shape", "Point"))
+                       DownsampleResolution = 50,
+                       VisualChoices = c("Shape", "Point"),
+                       BrushData = brushData)
 )
 
 app <- iSEE(sce, initial = initial)
@@ -968,7 +981,7 @@ Notably, iSEE can display active links transmitting point selections between pan
 
 ### Zooming into a plot subregion {#zoom-subregion}
 
-iSEE allows you to zoom into a subregion of a plot, by simply drawing a rectangle around the area of interest and double-clicking inside the rectangle.
+iSEE allows you to zoom into a subregion of a plot, by simply drawing a rectangular selection around the area of interest and double-clicking inside the rectangle.
 To zoom back out to the full plot, double-click anywhere in the plot.
 
 To demonstrate the feature, we set up two _Reduced dimension plot_ panels.
@@ -1005,6 +1018,56 @@ SCREENSHOT("screenshots/isee-zoom.png", delay=10)
 
 <!-- ![](img/Zoom.png) -->
 
+### Lasso selections {#lasso-selection}
+
+Sometimes, rectangular selections may not offer enough flexibility to include or exclude certain data points.
+While RStudio Shiny [does not offer freehand/lasso selections yet](https://github.com/rstudio/shiny/issues/2072), `r Biocpkg("iSEE")` implements this feature through a server-side click-based functionality to draw lasso selections in plot panels.
+
+To start a lasso selection, click once on the plot at the location where you wish to create the first lasso waypoint, and let the plot refresh to show the point.
+To draw subsequent waypoints, click once at the desired locations, each time allowing the plot to refresh.
+To close the lasso and activate the selection, click on the starting waypoint of the lasso (a tolerance of 1% of the axis range is applied).
+
+To demonstrate the feature, we define one open (i.e. incomplete) and one closed (i.e., active) lasso selection in two separate _Row data plot_ panels, to select features (i.e., genes) that show a higher total UMI count across all cells than the general trend for other features detected in the same number of cells.
+In addition, we specify that the the _Row data table_ should display the features captured by the closed lasso selection, along with their associated metadata.
+
+> <i class="fa fa-wrench fa-2x"></i> **Action:** Close the app and run the following block of code to launch the example application described above.
+Close the incomplete lasso selection in the first panel by clickig on the initial waypoint.
+
+```{r}
+initial <- list(
+  RowDataPlot(XAxis = "Row data", YAxis = "log10_total", XAxisRowData = "detected", 
+              BrushData = list(lasso = NULL, closed = FALSE, panelvar1 = NULL, panelvar2 = NULL,
+                               mapping = list(x = "X", y = "Y"),
+                               coord = structure(c(
+                                 -0.12, 11.03, 20.69, 39.08,
+                                 60.5, 85.53, 93.68, 95.79,
+                                 60.8, 34.26, -0.12,
+                                 2.29, 2.77, 3.03, 3.32,
+                                 3.54, 3.98, 4.24, 4.72,
+                                 4.69, 4.43, 3.41), .Dim = c(11L, 2L)))),
+  RowDataPlot(XAxis = "Row data", YAxis = "log10_total", XAxisRowData = "detected", 
+              BrushData = list(lasso = NULL, closed = TRUE, panelvar1 = NULL, panelvar2 = NULL,
+                               mapping = list(x = "X", y = "Y"),
+                               coord = structure(c(
+                                 -0.12, 11.03, 20.69, 39.08,
+                                 60.5, 85.53, 93.68, 95.79,
+                                 60.8, 34.26, -0.12, -0.12,
+                                 2.29, 2.77, 3.03, 3.32,
+                                 3.54, 3.98, 4.24, 4.72,
+                                 4.69, 4.43, 3.41, 2.29), .Dim = c(12L, 2L)))),
+  RowDataTable(RowSelectionSource = "RowDataPlot2")
+)
+
+app <- iSEE(sce, initial = initial)
+```
+
+```{r, eval = FALSE}
+shiny::runApp(app)
+```
+```{r, echo=FALSE}
+SCREENSHOT("screenshots/isee-lassoselection.png", delay=10)
+```
+
 ### Filtering tables {#filter-table}
 
 Tables may also be preconfigured to immediately display a subset of rows according to their filters or select a row different from the first one when the app is launched.
@@ -1020,7 +1083,7 @@ In addition, we also preselect the cell named "Cell943".
 sce1 <- sce
 colData(sce1) <- colData(sce1)[, c("Cluster", "total", "subsets_MT_percent")]
 initial <- list(
-  ColumnDataTable(SearchColumns = c("[\"3\", \"5\"]", "5000 ... 15844", ""),
+  ColumnDataTable(SearchColumns = c('["3", "5"]", "5000 ... 15844"', ""),
                   Selected = "Cell943", PanelWidth = 12L)
 )
 
@@ -1043,7 +1106,7 @@ Select different rows of the cell to see the _Reduced dimension plot_ panel upda
 
 ```{r}
 initial <- list(
-  ColumnDataTable(SearchColumns = c("[\"3\", \"5\"]", "5000 ... 15844", ""),
+  ColumnDataTable(SearchColumns = c('["3", "5"]', "5000 ... 15844", ""),
                   Selected = "Cell943", PanelId = 1L, PanelWidth = 8L),
   ReducedDimensionPlot(Type = "TSNE", VisualBoxOpen = TRUE,
                        ColorBy = "Sample name", 
@@ -1129,7 +1192,6 @@ Select subsets of the points in each of these two panels and note how the plot i
 
 ```{r}
 GENERATOR <- createCustomPlot(CUSTOM_DIMRED)
-custom_panel <- GENERATOR()
 
 initial=list(
   ReducedDimensionPlot(
@@ -1383,8 +1445,6 @@ all_contents[['ReducedDimensionPlot1']] <- plot.data
 dot.plot
 ```
 
-
-
 ## Sharing and communication {#sharing-tours}
 
 One important aspect of visualization is the ability to share your insights with others. 
@@ -1441,6 +1501,19 @@ shiny::runApp(app)
 SCREENSHOT("screenshots/isee-iseeu-modereduceddim.png", delay=10)
 ```
 
+Furthermore, since `r Biocpkg("iSEE")` version 2.0.0, users can leverage the implementation of panels as a hierarchy of S4 classes to rapidly extend the framework and develop new types of panels with virtually unlimited freedom of functionality.
+In this framework, new panel types can be readily integrated in apps alongside built-in panel types and immediately benefit of most panel functionality with minimal effort, including the capacity to transmit selections to and from other panels.
+New panels may be implemented by extending the core virtual class `Panel` directly for full control over the user interface and reactive observers;
+alternatively, it is often desirable for developers to inherit from one of the concrete panel classes to get most of the essential functionality from the parent class "for free".
+
+Use cases demonstrating the implementation of new panels with various levels of complexity are available in the [Extending iSEE](https://isee.github.io/iSEE-book/) bookdown.
+For example, the _Hexagonal reduced dimension plot_ - implemented in the `r Biocpkg("iSEEu")` package - demonstrates an alternative to the downsampling strategy, by summarizing data points into hexagonal bins.
+
+```{r, echo=FALSE}
+knitr::include_graphics('https://isee.github.io/iSEE-book/screenshots/hex-dimred.png')
+```
+
+New panels and modes may be defined in independent _R_ packages that declare `Imports: iSEE` in their DESCRIPTION file, and distributed online to create an "iSEE-verse" of interoperable packages for interactive visualization, akin to the `r CRANpkg('tidyverse')` collection of R packages for data science.
 If you have ideas about additional panels and/or modes that might be useful, we welcome issues and pull requests at https://github.com/iSEE/iSEEu.
 
 # Additional resources {#more-resources}
