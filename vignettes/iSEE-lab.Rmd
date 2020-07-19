@@ -1445,8 +1445,6 @@ all_contents[['ReducedDimensionPlot1']] <- plot.data
 dot.plot
 ```
 
-
-
 ## Sharing and communication {#sharing-tours}
 
 One important aspect of visualization is the ability to share your insights with others. 
