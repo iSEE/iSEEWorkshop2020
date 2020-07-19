@@ -783,7 +783,10 @@ SCREENSHOT("screenshots/isee-colorbysample.png", delay=10)
 By default, only the `Color` options are displayed in the `Visual parameters` box.
 Additional controls can be shown by clicking the check boxes for `Shape`, `Size`, `Point`, `Facet` and `Text`.
 The `Size`, `Shape` and `Point` panels let you set the shape and size of points according to provided annotations (or to resize all points), and to set the point opacity.
+
 Here, you can also downsample points to increase the speed of rendering, which can be useful for data sets with large numbers of points.
+Crucially, downsampling is purely a visual effect; data points hidden by the downsampling process are still included in selections captured by Shiny brushes and lasso selections.
+We illustrate this point by applying the same Shiny brush to select a visually well defined cluster visually downsampled to a resolution of 100 and 50 bins, respectively; note how the information message for both selection declares the same number of data points selected, despite the clearly different number of data points displayed in the corresponding area of each plot.
 
 > <i class="fa fa-wrench fa-2x"></i> **Action:** Close the app and run the following block of code to continue editing the configuration of the _Reduced dimension plot_ panels prepared in the [previous section](#color-by-feature).
 Here, we reduce the point size and increase the transparency (i.e. reduce the value for the alpha attribute).
@@ -791,23 +794,33 @@ We also apply a downsampling grid of 100 horizontal and vertical bins to the plo
 Finally, we display the `Shape` and `Point` options.
 
 ```{r}
+brushData <- list(xmin = -16.44, xmax = 5.6976316150235, ymin = -41.147401279341, ymax = -15.99494636763, 
+        coords_css = list(xmin = 231.34375, xmax = 383.34375, ymin = 306L, ymax = 417L), 
+        coords_img = list(xmin = 231.34375, xmax = 383.34375, ymin = 306L, ymax = 417L), 
+        img_css_ratio = list(x = 1L, y = 1L), mapping = list(x = "X", y = "Y", colour = "ColorBy"), 
+        domain = list(left = -44.5050628659896, right = 38.791275779239, bottom = -43.4753804355979, 
+            top = 47.8385432957266), range = list(left = 38.7190443065069, right = 610.520547945205, 
+            bottom = 427.273577161815, top = 24.2971850062453), log = list(x = NULL, 
+            y = NULL), direction = "xy", brushId = "ReducedDimensionPlot2_Brush", outputId = "ReducedDimensionPlot2")
 initial <- list(
   ReducedDimensionPlot(Type = "TSNE", ColorBy = "Column data", 
                        ColorByColumnData = "Cluster",
                        VisualBoxOpen = TRUE, Downsample = TRUE, 
-                       DownsampleResolution = 100),
+                       DownsampleResolution = 200),
   ReducedDimensionPlot(Type = "TSNE", ColorBy = "Sample name", 
                        ColorBySampleName = "Cell2439",
                        VisualBoxOpen = TRUE, PointSize = 0.4,
                        PointAlpha = 0.4, Downsample = TRUE, 
                        DownsampleResolution = 100,
-                       VisualChoices = c("Shape", "Point")),
+                       VisualChoices = c("Shape", "Point"),
+                       BrushData = brushData),
   ReducedDimensionPlot(Type = "TSNE", ColorBy = "Sample name", 
                        ColorBySampleName = "Cell673",
                        VisualBoxOpen = TRUE, PointSize = 0.4,
                        PointAlpha = 0.4, Downsample = TRUE, 
-                       DownsampleResolution = 100,
-                       VisualChoices = c("Shape", "Point"))
+                       DownsampleResolution = 50,
+                       VisualChoices = c("Shape", "Point"),
+                       BrushData = brushData)
 )
 
 app <- iSEE(sce, initial = initial)
