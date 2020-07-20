@@ -2,7 +2,7 @@ pandoc: 2.7.3
 pkgdown: 1.5.1
 pkgdown_sha: ~
 articles: []
-last_built: 2020-07-20T10:04Z
+last_built: 2020-07-20T18:07Z
 urls:
   reference: https://iSEE.github.io/iSEEWorkshop2020/reference
   article: https://iSEE.github.io/iSEEWorkshop2020/articles
