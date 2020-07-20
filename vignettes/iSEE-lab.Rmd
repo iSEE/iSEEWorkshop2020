@@ -1509,8 +1509,18 @@ alternatively, it is often desirable for developers to inherit from one of the c
 Use cases demonstrating the implementation of new panels with various levels of complexity are available in the [Extending iSEE](https://isee.github.io/iSEE-book/) bookdown.
 For example, the _Hexagonal reduced dimension plot_ - implemented in the `r Biocpkg("iSEEu")` package - demonstrates an alternative to the downsampling strategy, by summarizing data points into hexagonal bins.
 
+```{r}
+app <- iSEE(sce, initial = list(
+  ReducedDimensionPlot(PanelWidth = 6L),
+  ReducedDimensionHexPlot(PanelWidth = 6L)
+))
+```
+
+```{r, eval = FALSE}
+shiny::runApp(app)
+```
 ```{r, echo=FALSE, out.width = '100%'}
-knitr::include_graphics('https://isee.github.io/iSEE-book/screenshots/hex-dimred.png')
+SCREENSHOT("screenshots/isee-iseeu-modereduceddimhex.png", delay=10)
 ```
 
 New panels and modes may be defined in independent _R_ packages that declare `Imports: iSEE` in their DESCRIPTION file, and distributed online to create an "iSEE-verse" of interoperable packages for interactive visualization, akin to the `r CRANpkg('tidyverse')` collection of R packages for data science.
