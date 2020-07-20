@@ -896,7 +896,7 @@ This opens a pop-up window with the code required to generate all the currently 
 <p>To start a lasso selection, click once on the plot at the location where you wish to create the first lasso waypoint, and let the plot refresh to show the point. To draw subsequent waypoints, click once at the desired locations, each time allowing the plot to refresh. To close the lasso and activate the selection, click on the starting waypoint of the lasso (a tolerance of 1% of the axis range is applied).</p>
 <p>To demonstrate the feature, we define one open (i.e. incomplete) and one closed (i.e., active) lasso selection in two separate <em>Row data plot</em> panels, to select features (i.e., genes) that show a higher total UMI count across all cells than the general trend for other features detected in the same number of cells. In addition, we specify that the the <em>Row data table</em> should display the features captured by the closed lasso selection, along with their associated metadata.</p>
 <blockquote>
-<p><i class="fa fa-wrench fa-2x"></i> <strong>Action:</strong> Close the app and run the following block of code to launch the example application described above. Close the incomplete lasso selection in the first panel by clickig on the initial waypoint.</p>
+<p><i class="fa fa-wrench fa-2x"></i> <strong>Action:</strong> Close the app and run the following block of code to launch the example application described above. Close the incomplete lasso selection in the first panel by clicking on the initial waypoint.</p>
 </blockquote>
 <div class="sourceCode" id="cb38"><html><body><pre class="r"><span class="no">initial</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
   <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/RowDataPlot-class.html">RowDataPlot</a></span>(<span class="kw">XAxis</span> <span class="kw">=</span> <span class="st">"Row data"</span>, <span class="kw">YAxis</span> <span class="kw">=</span> <span class="st">"log10_total"</span>, <span class="kw">XAxisRowData</span> <span class="kw">=</span> <span class="st">"detected"</span>,
@@ -1211,7 +1211,12 @@ This opens a pop-up window with the code required to generate all the currently 
 <p><img src="screenshots/isee-iseeu-modereduceddim.png" width="100%"></p>
 <p>Furthermore, since <em><a href="https://bioconductor.org/packages/3.12/iSEE">iSEE</a></em> version 2.0.0, users can leverage the implementation of panels as a hierarchy of S4 classes to rapidly extend the framework and develop new types of panels with virtually unlimited freedom of functionality. In this framework, new panel types can be readily integrated in apps alongside built-in panel types and immediately benefit of most panel functionality with minimal effort, including the capacity to transmit selections to and from other panels. New panels may be implemented by extending the core virtual class <code>Panel</code> directly for full control over the user interface and reactive observers; alternatively, it is often desirable for developers to inherit from one of the concrete panel classes to get most of the essential functionality from the parent class “for free”.</p>
 <p>Use cases demonstrating the implementation of new panels with various levels of complexity are available in the <a href="https://isee.github.io/iSEE-book/">Extending iSEE</a> bookdown. For example, the <em>Hexagonal reduced dimension plot</em> - implemented in the <em><a href="https://bioconductor.org/packages/3.12/iSEEu">iSEEu</a></em> package - demonstrates an alternative to the downsampling strategy, by summarizing data points into hexagonal bins.</p>
-<p><img src="https://isee.github.io/iSEE-book/screenshots/hex-dimred.png" width="100%"></p>
+<div class="sourceCode" id="cb59"><html><body><pre class="r"><span class="no">app</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html">iSEE</a></span>(<span class="no">sce</span>, <span class="kw">initial</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
+  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html">ReducedDimensionPlot</a></span>(<span class="kw">PanelWidth</span> <span class="kw">=</span> <span class="fl">6L</span>),
+  <span class="fu"><a href="https://rdrr.io/pkg/iSEEu/man/ReducedDimensionHexPlot-class.html">ReducedDimensionHexPlot</a></span>(<span class="kw">PanelWidth</span> <span class="kw">=</span> <span class="fl">6L</span>)
+))</pre></body></html></div>
+<div class="sourceCode" id="cb60"><html><body><pre class="r"><span class="kw pkg">shiny</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html">runApp</a></span>(<span class="no">app</span>)</pre></body></html></div>
+<p><img src="screenshots/isee-iseeu-modereduceddimhex.png" width="100%"></p>
 <p>New panels and modes may be defined in independent <em>R</em> packages that declare <code>Imports: iSEE</code> in their DESCRIPTION file, and distributed online to create an “iSEE-verse” of interoperable packages for interactive visualization, akin to the <em><a href="https://CRAN.R-project.org/package=tidyverse">tidyverse</a></em> collection of R packages for data science. If you have ideas about additional panels and/or modes that might be useful, we welcome issues and pull requests at <a href="https://github.com/iSEE/iSEEu" class="uri">https://github.com/iSEE/iSEEu</a>.</p>
 </div>
 <div id="more-resources" class="section level1">
@@ -1241,7 +1246,7 @@ This opens a pop-up window with the code required to generate all the currently 
 <div id="session-info" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#session-info" class="anchor"></a>Session info</h1>
-<div class="sourceCode" id="cb59"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span>()
+<div class="sourceCode" id="cb61"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span>()
 <span class="co">#&gt; R version 4.0.0 (2020-04-24)</span>
 <span class="co">#&gt; Platform: x86_64-pc-linux-gnu (64-bit)</span>
 <span class="co">#&gt; Running under: Ubuntu 18.04.4 LTS</span>
