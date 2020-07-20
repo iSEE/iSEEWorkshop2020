@@ -1031,7 +1031,7 @@ To demonstrate the feature, we define one open (i.e. incomplete) and one closed 
 In addition, we specify that the the _Row data table_ should display the features captured by the closed lasso selection, along with their associated metadata.
 
 > <i class="fa fa-wrench fa-2x"></i> **Action:** Close the app and run the following block of code to launch the example application described above.
-Close the incomplete lasso selection in the first panel by clickig on the initial waypoint.
+Close the incomplete lasso selection in the first panel by clicking on the initial waypoint.
 
 ```{r}
 initial <- list(
