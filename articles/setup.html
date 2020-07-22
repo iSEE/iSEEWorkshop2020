@@ -95,7 +95,7 @@
       <h1 data-toc-skip>Workshop setup</h1>
                         <h4 class="author">Kevin Rue-Albrecht, Charlotte Soneson, Federico Marini, and Aaron Lun</h4>
             
-            <h4 class="date">July 20, 2020</h4>
+            <h4 class="date">July 22, 2020</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/iSEE/iSEEWorkshop2020/blob/master/vignettes/setup.Rmd"><code>vignettes/setup.Rmd</code></a></small>
       <div class="hidden name"><code>setup.Rmd</code></div>
@@ -117,23 +117,28 @@ td > img {
 <a href="#docker" class="anchor"></a>Docker</h1>
 <p>In the Docker settings menu:</p>
 <ul>
-<li>Open ‘Preferences…’</li>
-<li>Navigate to ‘Resources’</li>
-<li>Use the slider to set ‘Memory’ to ‘4.00 GB’</li>
-<li>Click ‘Apply &amp; Restart’</li>
+<li><p>Open ‘Preferences…’</p></li>
+<li><p>Navigate to ‘Resources’</p></li>
+<li><p>Use the slider to set ‘Memory’ to ‘4.00 GB’</p></li>
+<li><p>Click ‘Apply &amp; Restart’</p></li>
 </ul>
 </div>
 <div id="workshop" class="section level1">
 <h1 class="hasAnchor">
 <a href="#workshop" class="anchor"></a>Workshop</h1>
 <ul>
-<li>Run <code>docker pull iseedevelopers/iseeworkshop2020</code>
+<li><p>Run <code>docker pull iseedevelopers/iseeworkshop2020</code></p></li>
+<li>
+<p>Run <code>docker run -e PASSWORD=isee -p 8787:8787 -d --rm iseedevelopers/iseeworkshop2020</code>.</p>
+<p>You may use <code>-v $(pwd):/home/rstudio</code> argument to map your local directory to the container.</p>
 </li>
-<li>Run <code>docker run -e PASSWORD=isee -p 8787:8787 -d --rm iseedevelopers/iseeworkshop2020</code>. Use <code>-v $(pwd):/home/rstudio</code> argument to map your local directory to the container.</li>
-<li>Log in to RStudio at <a href="http://localhost:8787">http://localhost:8787</a> using username <code>rstudio</code> and password <code>isee</code>. Note that on Windows you need to provide your localhost IP address like <code>http://191.163.92.108:8787/</code> - find it using <code>docker-machine ip default</code> in Docker’s terminal.</li>
-<li>Run <code><a href="https://rdrr.io/r/utils/browseVignettes.html">browseVignettes(package = "iSEEWorkshop2020")</a></code>. Click on one of the links, “HTML”, “source”, “R code”.
+<li><p>Log in to RStudio at <a href="http://localhost:8787">http://localhost:8787</a> using username <code>rstudio</code> and password <code>isee</code>. Note that on Windows you need to provide your localhost IP address like <code>http://191.163.92.108:8787/</code> - find it using <code>docker-machine ip default</code> in Docker’s terminal.</p></li>
+<li>
+<p>Access the workshop vignettes:</p>
 <ul>
-<li>In case of <code>The requested page was not found</code> error, add <code>help/</code> to the URL right after the hostname, e.g., <a href="http://localhost:8787/help/library/iSEEWorkshop2020/doc/iSEE-lab.html" class="uri">http://localhost:8787/help/library/iSEEWorkshop2020/doc/iSEE-lab.html</a>. This is a <a href="https://github.com/rocker-org/rocker-versioned/issues/178">known bug</a>.</li>
+<li><p><code>vignette('setup', 'iSEEWorkshop2020')</code></p></li>
+<li><p><code>vignette('iSEE-lab', 'iSEEWorkshop2020')</code></p></li>
+<li><p>Alternatively, run <code><a href="https://rdrr.io/r/utils/browseVignettes.html">browseVignettes(package = "iSEEWorkshop2020")</a></code>. Click on one of the link “HTML”. You may run into the error <code>The requested page was not found</code>, in which case add <code>help/</code> to the URL right after the hostname, e.g., <a href="http://localhost:8787/help/library/iSEEWorkshop2020/doc/iSEE-lab.html" class="uri">http://localhost:8787/help/library/iSEEWorkshop2020/doc/iSEE-lab.html</a>. This is a <a href="https://github.com/rocker-org/rocker-versioned/issues/178">known bug</a>.</p></li>
 </ul>
 </li>
 </ul>
