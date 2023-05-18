@@ -959,10 +959,10 @@ initial <- list(
   ReducedDimensionPlot(ColumnSelectionSource = "FeatureAssayPlot1",
                        Type = "TSNE", ColorBy = "Column data",
                        ColorByColumnData = "Cluster", SelectionBoxOpen = TRUE),
-  ColumnDataPlot(ColumnSelectionSource = "FeatureAssayPlot1", SelectionEffect = "Color",
+  ColumnDataPlot(ColumnSelectionSource = "FeatureAssayPlot1", 
+                 ColorBy = "Column selection", ColumnSelectionRestrict = FALSE,
                  YAxis = "log10_total", XAxis = "Column data",
-                 XAxisColumnData = "subsets_MT_percent", ColorBy = "Column data",
-                 ColorByColumnData = "Cluster", SelectionBoxOpen = TRUE)
+                 XAxisColumnData = "subsets_MT_percent", SelectionBoxOpen = TRUE)
 )
 
 app <- iSEE(sce, initial = initial)
