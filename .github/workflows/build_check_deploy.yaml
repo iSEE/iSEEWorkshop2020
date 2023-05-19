@@ -54,8 +54,8 @@ jobs:
         shell: Rscript {0}
 
       - name: Publish to Registry
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        uses: elgohr/Publish-Docker-Github-Action@master
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: elgohr/Publish-Docker-Github-Action@v5
         with:
           name: docker.pkg.github.com/isee/iseeworkshop2020/iseeworkshop2020:latest
           username: ${{ github.actor }}
@@ -63,7 +63,7 @@ jobs:
           registry: docker.pkg.github.com
 
       - uses: docker/build-push-action@v1
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
@@ -73,18 +73,18 @@ jobs:
           tags: latest
 
       - name: Build pkgdown
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
            PATH=$PATH:$HOME/bin/ Rscript -e 'BiocManager::install("pkgdown"); pkgdown::build_site(".")'
 
       # deploy needs rsync? Seems so.
       - name: Install deploy dependencies
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           apt-get update && apt-get -y install rsync
 
       - name: Deploy 🚀
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
